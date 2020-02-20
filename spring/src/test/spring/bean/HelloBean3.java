@@ -13,13 +13,12 @@ import test.spring.model.TvDTO;
 @Controller
 public class HelloBean3 {
 
-	// 일반 메서드에
-	// ModelAttribute 어노테이션을 추가해 놓으면 -- >
-	// 모든 view에서 가져다 쓸수있다.
+// 	일반 메서드에
+// 	ModelAttribute 어노테이션을 추가해 놓으면 -- >
+// 	모든 view에서 가져다 쓸수있다.
 //	@ModelAttribute("tvInfo")
 //	public TvDTO getTV(String col) {
 //		System.out.println("getTv호출");
-//		
 //		TvDTO dto = new TvDTO();
 //		dto.setPower(true);
 //		dto.setCh(10);
