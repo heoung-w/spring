@@ -13,15 +13,12 @@ public class TestDTO {
 
 	public TestDTO(String id) {
 		this.id = id;
-		System.out.println("생성자1");
 	}
 	public TestDTO(String id, Date reg) {
 		this.id = id; this.reg = reg;
-		System.out.println("생성자2");
 	}
 	public TestDTO(String id, String pw, Date reg) {
 		this.id = id; this.pw = pw; this.reg = reg;
-		System.out.println("생성자3");
 	}
 	
 	public String getId() {
