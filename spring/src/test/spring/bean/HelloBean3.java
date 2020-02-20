@@ -68,7 +68,7 @@ public class HelloBean3 {
 	@ResponseBody
 	public String hello5() {
 		return "helloooooooooooo 5!!!!";
-	}
+	}  
 	
 	// RequestMapping 옵션들
 	// value = 주소, method=전송방식, params=파라미터
@@ -81,6 +81,12 @@ public class HelloBean3 {
 		
 		return "/WEB-INF/views/spring01/hello.jsp";
 	}
+  
+	
+	
+	      
+	 
+	
 	
 	// @Requestparam 
 	// value : 파라미터명 , required : 파라미터 필수 여부 , defaultValue : 기본값
