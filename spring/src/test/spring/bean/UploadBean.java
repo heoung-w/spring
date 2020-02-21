@@ -15,7 +15,7 @@ public class UploadBean {
 	public String uploadForm() {
 		System.out.println("test");
 		
-		return "upload/uploadForm";
+		return "spring/upload/uploadForm";
 	}
 	
 	// 사진이나, 이미지를 다운 하려면 그냥 Http가 아니라 MultipartHttp 써야함
@@ -62,6 +62,6 @@ public class UploadBean {
 		
 		model.addAttribute("newName", newName);
 		
-		return "upload/uploadPro";
+		return "spring/upload/uploadPro";
 	}
 }

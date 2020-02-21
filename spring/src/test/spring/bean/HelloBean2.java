@@ -53,7 +53,7 @@ public class HelloBean2 {
 		System.out.println(dto2.getPw());
 		System.out.println("reg ==> " + dto2.getReg());
 		
-		return "/WEB-INF/views/spring01/hello.jsp";
+		return "/WEB-INF/views/spring/spring01/hello.jsp";
 	}
 	
 	
@@ -67,7 +67,7 @@ public class HelloBean2 {
 		System.out.println(dto.getPw());
 //		request.setAttribute("id", dto.getId());	
 //		request.setAttribute("pw", dto.getPw());	
-		return "/WEB-INF/views/spring02/pro.jsp";
+		return "/WEB-INF/views/spring/spring02/pro.jsp";
 	}
 	
 	// # 2. Model 객체에 저장해서 model에 저장한 값 넘겨주기
@@ -78,7 +78,7 @@ public class HelloBean2 {
 //		model.addAttribute("id", dto.getId());
 //		model.addAttribute("pw", dto.getPw());
 //		
-//		return "/WEB-INF/views/spring02/pro.jsp";
+//		return "/WEB-INF/views/spring/spring02/pro.jsp";
 //	}
 	
 	
@@ -95,7 +95,7 @@ public class HelloBean2 {
 //		mv.setViewName("/WEB-INF/views/spring02/pro.jsp");
 //		
 //		return mv;
-//		//return "/WEB-INF/views/spring02/pro.jsp";
+//		//return "/WEB-INF/views/spring/spring02/pro.jsp";
 //	}
 	
 }

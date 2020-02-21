@@ -41,13 +41,13 @@ public class HelloBean3 {
 //		
 //		System.out.println("hello 매핑 메서드 호출");
 //		
-//		return "/WEB-INF/views/spring02/tv.jsp";
+//		return "/WEB-INF/views/spring/spring02/tv.jsp";
 //	}
 	
 	
 	@RequestMapping("form2.do")
 	public String sendMsg() {
-		return "/WEB-INF/views/spring02/form.jsp";
+		return "/WEB-INF/views/spring/spring02/form.jsp";
 	}
 	
 	@RequestMapping("pro2.do")
@@ -59,7 +59,7 @@ public class HelloBean3 {
 		System.out.println(dto.getId());
 		System.out.println(dto.getPw());
 		
-		return "/WEB-INF/views/spring02/pro.jsp";
+		return "/WEB-INF/views/spring/spring02/pro.jsp";
 	}
 	
 	
@@ -78,7 +78,7 @@ public class HelloBean3 {
 	@RequestMapping(value="hello6.do", params= {"id=admin","pw", "!age"})
 	public String hello6() {
 		
-		return "/WEB-INF/views/spring01/hello.jsp";
+		return "/WEB-INF/views/spring/spring01/hello.jsp";
 	}
   
 	
@@ -96,6 +96,7 @@ public class HelloBean3 {
 	// ------------ 파라미터(넘어오는 값)이 생략해도 매핑되는 방법 ----------------------------
 	// public String hell07(@RequestParam(value="msg", defaultValue="hello") String msg){ 이렇게 지정해 놓으면 기본값이 hello
 	// public String hell07(@RequestParam(value="msg", required=false) String msg){
+	
 	@RequestMapping("hello7.do")
 	public String hell07(
 		@RequestParam(value="id", required=true) String id,
@@ -106,7 +107,7 @@ public class HelloBean3 {
 		System.out.println(pw);
 		System.out.println(auto);
 		
-		return "/WEB-INF/views/spring01/hello.jsp";
+		return "/WEB-INF/views/spring/spring01/hello.jsp";
 	}
 	
 	

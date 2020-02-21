@@ -20,6 +20,6 @@ public class HelloBean {
 		public String hello() {
 			
 			// 로직 처리.....
-			return "/WEB-INF/views/spring01/hello.jsp";
+			return "/WEB-INF/views/spring/spring01/hello.jsp";
 		}
 }

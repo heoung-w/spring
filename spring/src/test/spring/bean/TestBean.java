@@ -8,7 +8,7 @@ public class TestBean {
 	
 	@RequestMapping("test.do")
 	public String test() {
-		 return "/WEB-INF/views/spring01/test.jsp";
+		 return "/WEB-INF/views/spring/spring01/test.jsp";
 	}
 
 }

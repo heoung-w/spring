@@ -8,36 +8,36 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 	>
-	<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
-		HelloBean hello = new HelloBean() 똑같은 말임!!
-	 -->
-	 <!-- 
-	 #1. HelloBean, TestBean 등.. 빈자바 클래스를 하나하나 호출하는 방법 
-	<bean id="hello" class="test.spring.bean.HelloBean"/>
-	<bean id="test" class="test.spring.bean.TestBean"/>
-	-->
-	<!-- 
-		#2. 한 페키지안에 모든 bean 클래스들을 호출하는 방법 
-	<context:component-scan base-package="test.spring.bean"/>
-	-->
+					<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
+						HelloBean hello = new HelloBean() 똑같은 말임!!
+					 -->
+					 <!-- 
+					 #1. HelloBean, TestBean 등.. 빈자바 클래스를 하나하나 호출하는 방법 
+					<bean id="hello" class="test.spring.bean.HelloBean"/>
+					<bean id="test" class="test.spring.bean.TestBean"/>
+					-->
+					<!-- 
+						#2. 한 페키지안에 모든 bean 클래스들을 호출하는 방법 
+				  	<context:component-scan base-package="test.spring.bean"/>
+					-->
+					
+					<!-- 
+					#3. test.spring이 들어간 모든 패키지안에 모든 애들을 스캔뜸!
+						특정 패키지 안의 클래스들을 스캔하고 어노테이션을 확인 후
+					-->
+	<context:component-scan base-package="test"/>
 	
-	<!-- 
-	#3. test.spring이 들어간 모든 패키지안에 모든 애들을 스캔뜸!
-		특정 패키지 안의 클래스들을 스캔하고 어노테이션을 확인 후
-	-->
-	<context:component-scan base-package="test.spring"/>
-	
-	
-	<!-- 다운로드 빈 클래스 세팅 
-		 컴파일 순서창 다운로드가 최우선 순위여야함( 서비스 할때 필요요소 미리 다운 받게 )
-		 다운로드는 다운받는 창 별도로 만들것이다. 다운로드만 하고 페이지 이동 없음
-		 BeanNameViewResolver 는 새로운 창을 구성할 때 우선순위를 주기위해 사용
-		 지정하지 않으면 이동먼저 처리하려함.
-		<property> view 에 대한 우선순위를 지정하는 옵션;
-		다운로드는 페이지 이동전에 다운로드 창이 뜨게 하기 위해
-		반드시 우선순위 0(최우선)으로 지정하고, 
-		view를 담당하는 ViewResolver에는 0보다 우선순위가 낮은 1을 지정
-	-->
+					
+					<!-- 다운로드 빈 클래스 세팅 
+						 컴파일 순서창 다운로드가 최우선 순위여야함( 서비스 할때 필요요소 미리 다운 받게 )
+						 다운로드는 다운받는 창 별도로 만들것이다. 다운로드만 하고 페이지 이동 없음
+						 BeanNameViewResolver 는 새로운 창을 구성할 때 우선순위를 주기위해 사용
+						 지정하지 않으면 이동먼저 처리하려함.
+						<property> view 에 대한 우선순위를 지정하는 옵션;
+						다운로드는 페이지 이동전에 다운로드 창이 뜨게 하기 위해
+						반드시 우선순위 0(최우선)으로 지정하고, 
+						view를 담당하는 ViewResolver에는 0보다 우선순위가 낮은 1을 지정
+					-->
 	<bean id= "fileDown" class="test.spring.bean.DownloadView"/>
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
@@ -61,7 +61,8 @@
 		<property name="reg" ref="day"/>
 	</bean>
 	
-	<!-- 생성자 호출 -->
+										<!-- 생성자 호출 -->
+										
 	<bean id="dto2" class="test.spring.model.TestDTO">
 		<constructor-arg value="testID"/>
 		<constructor-arg ref="day"/>
@@ -77,11 +78,12 @@
 	
 	
 	
-	<!-- 잠재적 모호함을 줄여주는 방법들 -->	
+						<!-- 잠재적 모호함을 줄여주는 방법들 -->	
+						
 	<!-- 메서드 안에 변수들 불러올수 있는 여러가지 방법 -->	
 	
 	<!-- 
-		# 0. index 번호로 줘도됨
+						# 0. index 번호로 줘도됨
 		
 		public class DTO{
 			private String id;
@@ -110,7 +112,7 @@
 			....get/set 메서드...
 		}
 		
-	# 1. type 별로 구분하는법
+						# 1. type 별로 구분하는법
 	
 	<bean id="dto3" class = "test.spring.model.TestDTO">
 		<constructor-arg type = "java.lang.String" value="https://naver.com"/>
@@ -119,10 +121,11 @@
 		<constructor-arg type = "long" value="100"/>
 	</bean>
 	
-	# 2. name 별로 구분하는법 : 모호성 해결
-			단, 컴파일 시 반드시 디버그 플래그 활성화 되어있는 상태로 .class파일이 생성되어야 하고
-			(아니면 파라미터 이름 손실되 매핑 안됨)
-			비활성화 상태로 실행하고자 할때는 생성자에 @ContructorProperties 어노테이션을 추가해줘야함
+					# 2. name 별로 구분하는법 : 모호성 해결
+					
+	단, 컴파일 시 반드시 디버그 플래그 활성화 되어있는 상태로 .class파일이 생성되어야 하고
+	(아니면 파라미터 이름 손실되 매핑 안됨)
+	비활성화 상태로 실행하고자 할때는 생성자에 @ContructorProperties 어노테이션을 추가해줘야함
 	
 	<bean id="dto3" class = "test.spring.model.TestDTO">
 		<constructor-arg name = "url" value="https://naver.com"/>
@@ -133,12 +136,13 @@
 	-->
 	
 	
-	
-	<!-- 
-		ViewResolver 세팅 
-			prefix : 접두어
-			suffix : 접미어
-	-->
+									
+									<!-- 
+										ViewResolver 세팅 
+											prefix : 접두어
+											suffix : 접미어
+									-->
+									
 	<bean id="viewResolver" class ="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
@@ -147,7 +151,8 @@
 	
 	
 	
-	<!-- 파일 업로드, value에 -1은 업로드 크기제한 없음. KB 기준 -->
+			<!-- 파일 업로드, value에 -1은 업로드 크기제한 없음. KB 기준 -->
+			
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="-1"/>
 		<property name="defaultEncoding" value="UTF-8"/>
@@ -157,10 +162,31 @@
 	
 	
 	
+									<!-- mybatis 세팅 -->
+									
+	<!-- dataSource : DB 데이터 소스   DB 커넥션 정보 DataSource 타입-->
+	<!-- p:url="jdbc.oracle.thin:@nullmaster.iptime.org:3000:orcl" 외부에서도 접속 하고싶을때!! -->	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+		p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		p:url="jdbc:oracle:thin:@192.168.0.252:1521:orcl"
+		p:username="java01"
+		p:password="java01"/>
+		
+	<!-- 커넥션 풀 역활 -->
+	<!-- DB연결 정보 : dataSource, 매퍼위치와 typeAlias에 대한 정보 : mybatis-config.xml에 설정-->
+	<!-- 커넥션 connetion == session -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="/WEB-INF/mybatis/mybatis-config.xml"/>
+	</bean>
 	
-	
-	
-	
+	<!-- sql문 날릴때 필요한 아이 -->
+	<!-- @AutoWired해서 아래 빈을 가져다 사용하게 됨 -->
+	<!-- destory-method="clearCache" : 종료시 무엇을 할지 지정하는 속성 => mybatis 장점 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
 	
 	
 </beans>

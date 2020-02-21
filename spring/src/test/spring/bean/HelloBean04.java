@@ -16,7 +16,7 @@ public class HelloBean04 {
 		System.out.println(name);
 		model.addAttribute("name", name);
 		
-		return "spring03/pikachu";
+		return "spring/spring03/pikachu";
 	}
 	
 	

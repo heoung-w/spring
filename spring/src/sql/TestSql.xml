@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace : 내부 쿼리들의 이름...  (쿼리문 호출할때 namespace명.sql태그의 id속성)  -->
+  <!-- 매퍼 파일 => sql 문장들을 모아서 작성해 놓은 파일 -->
+  <mapper namespace="test">
+  
+ 	 <!-- select count(*) from test-->
+ 	 <select id="userCount" resultType="int">
+ 	 	select count(*) from test
+ 	 </select>
+  
+	 <select id="maxAge" resultType="int">
+	 	select max(age) from test
+	 </select>
+	 
+	 <select id="selectAll" resultType="testDTO">
+	 	select * from test
+	 </select>
+  
+  	 <select id="getUser" parameterType="String" resultType="testDTO">
+  	 	select * from test where id = #{value}
+  	 </select>
+  	 
+  	 <select id ="getReg" parameterType="String" resultType="java.sql.Timestamp">
+  	 	select reg from test where id = #{value}
+  	 </select>
+	  
+	  <insert id="insertUser" parameterType="testDTO">
+	  	insert into test(id,pw,age,reg) values(#{id}, #{pw}, #{age}, sysdate)
+	  </insert>
+	  
+	  <insert id="updateUser" parameterType="hashmap">
+	  	update test set pw = #{mapPw}, age = #{mapAge} where id=#{mapId}
+	  </insert>
+	  
+	  <delete id="deleteUser" parameterType="String">
+	  	delete from test where id=#{value}
+	  </delete>
+  
+  </mapper>
