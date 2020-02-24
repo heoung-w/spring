@@ -11,4 +11,11 @@
 	<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
 		HelloBean hello = new HelloBean() 똑같은 말임!!
 	 -->
+	 <bean id="memberDAO" class="member.model.dao.MemberDAOImpl">
+	 	<property name ="sqlSession" ref="sqlSession" />
+	 </bean>
+	 <context:component-scan base-package="member.controller.bean"/>
+	 
+	 
+	 
 </beans>
