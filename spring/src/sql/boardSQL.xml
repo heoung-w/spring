@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="board">
+  
+  	<select id="countAll" resultType="int">
+  		select count(*) from springBoard
+  	</select>
+  
+  	<!-- 부등호를 읽어오지 못하므로 <![CDATA[]]로 묶어주면 순수 문자라는걸 알려준다 -->
+  	<select id="selectAll" parameterType="hashmap" resultType="boardVO">
+  		<![CDATA[
+  		select num, writer, subject, email, content, pw, reg, readcount,ref,re_step, re_level, r 
+  		from (select num, writer, subject, email, content, pw, reg, readcount,ref,re_step, re_level,rownum r
+  		from (select num, writer, subject, email, content, pw, reg, readcount,ref,re_step, re_level
+  		from springBoard order by ref desc, re_step asc)order by ref desc, re_step asc)
+  		where r >= #{start} and r <= #{end}
+  		]]>
+  	</select>
+  	
+	<insert id="insertArticle" parameterType="boardVO">
+		insert into springBoard values(springBoard_seq.nextval,#{writer},#{subject},#{email},#{content},#{pw},sysdate,#{readcount},#{ref},#{re_step},#{re_level})
+	</insert>
+  
+  <select id="getArticle" parameterType="int" resultType="boardVO">
+  	select * from springBoard where num=#{value}
+  </select>
+  
+  <update id="updateReadCount" parameterType="int">
+  	update springBoard set readcount = readcount + 1 where num=#{value}
+  </update>
+  
+  <select id="selectPw" parameterType="int" resultType="String">
+  	select pw from springBoard where num=#{value}
+  </select>
+  
+  <update id="updateArticle" parameterType="boardVO">
+  	update springBoard set subject=#{subject},email=#{email},content=#{content} where num=#{num} 
+  </update>
+  
+  <delete id="deleteArticle" parameterType="int">
+  	delete from springBoard where num=#{value}
+  </delete>
+  
+  </mapper>

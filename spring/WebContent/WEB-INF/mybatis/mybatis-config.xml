@@ -11,6 +11,7 @@
 	<typeAliases>
 		<typeAlias type="test.spring.model.TestMybatisDTO" alias="testDTO"/>
 		<typeAlias type="member.model.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="board.model.vo.BoardVO" alias="boardVO"/>
 	</typeAliases>
   	
   	<!--  매퍼의 경로 세팅 : sql 쿼리문이 작성되는 xml 파일들의 경로를 설정-->
@@ -18,6 +19,7 @@
   		<mapper resource="/sql/TestSql.xml"/>
   		<mapper resource="/sql/mybatisSQL.xml"/>
   		<mapper resource="/sql/memberSQL.xml"/>
+  		<mapper resource="/sql/boardSQL.xml"/>
   	</mappers>
   
     

@@ -1,5 +1,6 @@
 package member.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -50,13 +51,21 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public void deleteMember(String id) throws Exception {
+	public void deleteMember(String id, String pw) throws Exception {
 		
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("pw", pw);
+		sqlSession.delete("member.deleteMember", map);
 	}
 
 	@Override
 	public int idAvailCheck(String id) throws Exception {
-		return 0;
+		int check = (Integer)sqlSession.selectOne("member.idAvailCheck", id);
+		// check = 0 : db에 존재하지 않다 -> 사용가능
+		// check = 1 : db에 존재함 -> 사용 불가능한 id
+		
+		return check;
 	}
 
 }

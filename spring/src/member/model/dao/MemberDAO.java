@@ -25,7 +25,7 @@ public interface MemberDAO {
 	//회원 데이터 수정
 	public void updateMember(MemberVO vo) throws Exception;
 	//회원 데이터 삭제
-	public void deleteMember(String id) throws Exception;
+	public void deleteMember(String id, String pw) throws Exception;
 	//아이디 사용가능여부 조회
 	public int idAvailCheck(String id) throws Exception;
 }

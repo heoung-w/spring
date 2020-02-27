@@ -8,7 +8,7 @@
 	<link href="/spring/resource/style.css" rel="stylesheet" type="text/css" >
 </head>
 <c:if test ="${sessionScope.memId !=null}">
-	<c:redirect url="/spring/member/main.do"></c:redirect>
+	<c:redirect url="/member/main.do"></c:redirect>
 </c:if>
 <c:if test ="${sessionScope.memId ==null}">
 <body>

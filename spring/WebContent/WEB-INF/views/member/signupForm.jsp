@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +34,8 @@
 			}
 		}
 		// 아이디 중복 검사 함수
-		//					   inputForm 매개변수에 form 전체를 받음.(this.form)
-		function confirmIdPopup(inputForm){	
+		// inputForm 매개변수에 form 전체를 받음.(this.form)
+		/* function confirmIdPopup(inputForm){	
 			// 아이디 기입 재확인.
 			if(inputForm.id.value == ""){
 				alert("아이디를 입력하세요.");
@@ -47,8 +48,24 @@
 			
 			open(url,"confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizalbe=no, width=300, height=200");
 			
-		}
-	
+		} */
+	</script>
+	<script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#id").change(function(){
+				id = $("#id").val();
+				$.ajax({
+					type : "post",
+					url : "/spring/member/ajaxIdAvail.do",	// 처리할 곳으로 보내주고
+					data : {id : id},
+					success : function(data){	// 리턴값을 여기서 받는다 yes or no 
+						console.log(data);
+						$("#idCheckRes").val(data);
+					}
+				});
+			});
+		});
 	</script>
 </head>
 <c:if test="${sessionScope.memId != null}">
@@ -65,12 +82,18 @@
 	<table>
 		<tr>
 			<td>아이디 * </td>
-			<td><input type="text" name="id" /></td>
+			<td><input type="text" name="id" id="id"/></td>
 		</tr>
+		<tr>
+			<td>아이디 사용 가능 여부</td>
+			<td><input type="text" id="idCheckRes" disabled/></td>
+		</tr>
+		<!-- 
 		<tr>
 			<td>아이디 중복검사</td>
 			<td><input type="button" value="중복검사" onclick="confirmIdPopup(this.form)" /></td>
 		</tr>
+		 -->
 		<tr>
 			<td>비밀번호 * </td>
 			<td><input type="password" name="pw" /></td>
