@@ -25,11 +25,15 @@
            (..)    : 매개변수 개수 상관없다.
     -->
    <aop:config>
-           <!-- <aop:pointcut expression="execution(* main(..))" id="pc1"/> -->
-           <aop:pointcut expression="bean(tv)" id="pc2"/>
+           <aop:pointcut expression="execution(* main*(..))" id="pc1"/>
+         <!-- <aop:pointcut expression="bean(tv)" id="pc2"/> -->
            <aop:aspect ref="advice">
-               <!-- <aop:before method="before" pointcut-ref="pc1"/> -->
-               <aop:before method="before" pointcut-ref="pc2"/>
+               <aop:before method="before" pointcut-ref="pc1"/>
+               <!-- <aop:after method="after" pointcut-ref="pc1"/> -->
+               <!-- <aop:after-returning method="after" pointcut-ref="pc1"/> -->
+              <!-- <aop:after-throwing method="afterThrowing" pointcut-ref="pc1"/>-->
+              <aop:around method="around" pointcut-ref="pc1"/>
+             <!-- <aop:before method="before" pointcut-ref="pc2"/>  -->
            </aop:aspect>
    </aop:config>
    </beans>
