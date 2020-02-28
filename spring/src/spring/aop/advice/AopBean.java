@@ -32,7 +32,7 @@ public class AopBean {
         return "aop/testAop";
     }
     
-    public void main100() {
+    public void main100() {  
     	System.out.println(" == main 100 == ");
     }
 
