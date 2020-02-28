@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/aop/")
+// @RequestMapping("/aopMember/")
 public class AopBean {
 //di 결합도가 aop 응집도 높아
     @Autowired
