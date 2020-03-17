@@ -44,6 +44,8 @@
 		<property name="order" value="0" />
 	</bean>
 	
+	<bean id = "csvService" class = "test.spring.csv.CsvServiceBean" />
+	
 	
 	<!-- 
 	### bean 태그 : 객체 생성 태그. jsp:usebean과 비슷,
