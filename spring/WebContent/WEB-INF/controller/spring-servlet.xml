@@ -8,36 +8,37 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 	>
-					<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
-						HelloBean hello = new HelloBean() 똑같은 말임!!
-					 -->
-					 <!-- 
-					 #1. HelloBean, TestBean 등.. 빈자바 클래스를 하나하나 호출하는 방법 
-					<bean id="hello" class="test.spring.bean.HelloBean"/>
-					<bean id="test" class="test.spring.bean.TestBean"/>
-					-->
-					<!-- 
-						#2. 한 페키지안에 모든 bean 클래스들을 호출하는 방법 
-				  	<context:component-scan base-package="test.spring.bean"/>
-					-->
-					
-					<!-- 
-					#3. test.spring이 들어간 모든 패키지안에 모든 애들을 스캔뜸!
-						특정 패키지 안의 클래스들을 스캔하고 어노테이션을 확인 후
-					-->
+	<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
+		HelloBean hello = new HelloBean() 똑같은 말임!!
+	 -->
+	 <!-- 
+	 #1. HelloBean, TestBean 등.. 빈자바 클래스를 하나하나 호출하는 방법 
+	<bean id="hello" class="test.spring.bean.HelloBean"/>
+	<bean id="test" class="test.spring.bean.TestBean"/>
+	-->
+	<!-- 
+		#2. 한 페키지안에 모든 bean 클래스들을 호출하는 방법 
+  	<context:component-scan base-package="test.spring.bean"/>
+	-->
+	
+	<!-- 
+	#3. test.spring이 들어간 모든 패키지안에 모든 애들을 스캔뜸!
+		특정 패키지 안의 클래스들을 스캔하고 어노테이션을 확인 후
+	-->
 	<context:component-scan base-package="test"/>
 	
 					
-					<!-- 다운로드 빈 클래스 세팅 
-						 컴파일 순서창 다운로드가 최우선 순위여야함( 서비스 할때 필요요소 미리 다운 받게 )
-						 다운로드는 다운받는 창 별도로 만들것이다. 다운로드만 하고 페이지 이동 없음
-						 BeanNameViewResolver 는 새로운 창을 구성할 때 우선순위를 주기위해 사용
-						 지정하지 않으면 이동먼저 처리하려함.
-						<property> view 에 대한 우선순위를 지정하는 옵션;
-						다운로드는 페이지 이동전에 다운로드 창이 뜨게 하기 위해
-						반드시 우선순위 0(최우선)으로 지정하고, 
-						view를 담당하는 ViewResolver에는 0보다 우선순위가 낮은 1을 지정
-					-->
+	<!-- 다운로드 빈 클래스 세팅 
+		 컴파일 순서창 다운로드가 최우선 순위여야함( 서비스 할때 필요요소 미리 다운 받게 )
+		 다운로드는 다운받는 창 별도로 만들것이다. 다운로드만 하고 페이지 이동 없음
+		 BeanNameViewResolver 는 새로운 창을 구성할 때 우선순위를 주기위해 사용
+		 지정하지 않으면 이동먼저 처리하려함.
+		<property> view 에 대한 우선순위를 지정하는 옵션;
+		다운로드는 페이지 이동전에 다운로드 창이 뜨게 하기 위해
+		반드시 우선순위 0(최우선)으로 지정하고, 
+		view를 담당하는 ViewResolver에는 0보다 우선순위가 낮은 1을 지정
+	-->
+	
 	<bean id= "fileDown" class="test.spring.bean.DownloadView"/>
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="0" />
@@ -137,11 +138,11 @@
 	
 	
 									
-									<!-- 
-										ViewResolver 세팅 
-											prefix : 접두어
-											suffix : 접미어
-									-->
+	<!-- 
+		ViewResolver 세팅 
+			prefix : 접두어
+			suffix : 접미어
+	-->
 									
 	<bean id="viewResolver" class ="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>
