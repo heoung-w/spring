@@ -57,7 +57,7 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("id", id);
 		map.put("pw", pw);
 		sqlSession.delete("member.deleteMember", map);
-	}
+	} 
 
 	@Override
 	public int idAvailCheck(String id) throws Exception {

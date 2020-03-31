@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  
+  <!--한글 인코딩 POST방식으로 인코딩 처리  -->
+  <filter>
+  	<filter-name>characterEncodingFilter</filter-name>
+  	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>UTF-8</param-value>
+  	</init-param>	
+  </filter>
+  
+  <filter-mapping>
+  	<filter-name>characterEncodingFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!--서블릿 매핑  -->
+  <servlet>
+  	<servlet-name>lhc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param><!--controller여러 개 지정하고 싶은 경우(한 개만 하고싶으면 init-param안써도 됨)
+  					/ 이름 바꾸거나 (이렇게 하는 경우에는 '프로젝트명-servlet.xml'로 안해도 됨) 
+  					/WEB-INF바로 밑에 지정하고싶지 않은 경우에 <init-param>해야 함. 
+  				 -->
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>
+  			<!-- 여기 안에다가 여러개 Controller xml파일을 넣을 수 있음. -->
+			/WEB-INF/lhcController/lhcMember-controller.xml
+			/WEB-INF/lhcController/lhcBoard-controller.xml			
+			/WEB-INF/lhcController/lhc-servlet.xml			
+  		</param-value>
+  	</init-param>
+  </servlet> 
+  <servlet-mapping>
+  	<servlet-name>lhc</servlet-name>
+  	<url-pattern>*.lhc</url-pattern><!--.do로 매핑  -->
+  </servlet-mapping>
+</web-app>

@@ -8,14 +8,13 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd"
 	>
-	<!-- 빈클래스가 호출 가능하게 컨트롤러에 세팅
-		HelloBean hello = new HelloBean() 똑같은 말임!!
-	 --> 
-	 <bean id="boardDAO" class="board.model.dao.BoardDAOImpl">
-	 	<property name ="sqlSession" ref="sqlSession" />
-	 </bean>
-	 <context:component-scan base-package="board.controller.bean"/>
-	 
-	 
-	 
+<!-- 이 파일이 controller. dispatcher가 얘를 찾음. -->
+
+<!-- 	<bean id="lhcMemberDAO" class="lhcMember.model.dao.LhcMemberDAOImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean> -->
+	
+	<!-- 각 package내에 있는 bean클래스는 객체 생성을 이렇게 해줘야 한다.  -->
+	<context:component-scan base-package="lhcMember.controller.bean"/>
+	
 </beans>

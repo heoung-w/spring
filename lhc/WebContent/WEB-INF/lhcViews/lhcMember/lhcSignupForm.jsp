@@ -1,12 +1,13 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>회원가입</title>
-	<link href="/spring/resource/style.css" rel="stylesheet" type="text/css">
+	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 	<script>
 		// 유효성 검사
 		function check(){
@@ -30,6 +31,18 @@
 			}
 			if(!inputs.name.value){
 				alert("이름을 입력하세요.");
+				return false;
+			}
+			if(!inputs.age.value){
+				alert("나이를 입력하세요.");
+				return false;
+			}
+			if(!inputs.phone.value){
+				alert("전화번호를 입력하세요.");
+				return false;
+			}
+			if(!inputs.addr.value){
+				alert("주소를 입력하세요.");
 				return false;
 			}
 		}
@@ -57,8 +70,8 @@
 				id = $("#id").val();
 				$.ajax({
 					type : "post",
-					url : "/lhc/lhcMember/ajaxIdAvail.lhc",	// 처리할 곳으로 보내주고
-					data : {id : id},  
+					url : "/lhc/lhcMember/lhcAjaxIdAvail.lhc",	// 처리할 곳으로 보내주고
+					data : {id : id},
 					success : function(data){	// 리턴값을 여기서 받는다 yes or no 
 						console.log(data);
 						$("#idCheckRes").val(data);
@@ -67,26 +80,41 @@
 			});
 		});
 	</script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+			function addr_set(){
+			    new daum.Postcode({
+			        oncomplete: function(data) {
+			        	console.log(data);
+			        	$("#add").val(data["address"]);
+			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+			        }
+			    }).open();
+			};
+		</script>
+	
+
 </head>
 <c:if test="${sessionScope.memId != null}">
 	<script>
 		alert("로그아웃 후 회원가입 해주세요.");
-		window.location = "/spring/member/main.do";
+		window.location = "/lhc/lhcMember/lhcMain.lhc";
 	</script>
 </c:if>
 <c:if test="${sessionScope.memId == null}">
 <body>
 	<br />
 	<h1 align="center">회원가입</h1>
-	<form action="/spring/member/signupPro.do" method="post" name="inputForm" >
+	<form action="/lhc/lhcMember/lhcSignupPro.lhc" method="post" name="inputForm" >
 	<table>
 		<tr>
 			<td>아이디 * </td>
-			<td><input type="text" name="id" id="id"/></td>
+			<td colspan="2"><input type="text" name="id" id="id" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>아이디 사용 가능 여부</td>
-			<td><input type="text" id="idCheckRes" disabled/></td>
+			<td colspan="2"><input type="text" id="idCheckRes" disabled style="text-align:center; width:200px"/></td>
 		</tr>
 		<!--  
 		<tr>
@@ -96,36 +124,45 @@
 		 -->
 		<tr>
 			<td>비밀번호 * </td>
-			<td><input type="password" name="pw" /></td>
+			<td colspan="2"><input type="password" name="pw" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인 * </td>
-			<td><input type="password" name="pwCh" /></td>
+			<td colspan="2"><input type="password" name="pwCh" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>이름 * </td>
-			<td><input type="text" name="name" /></td>
+			<td colspan="2"><input type="text" name="name" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>나이 * </td>
-			<td><input type="text" name="age" /></td>
+			<td colspan="2"><input type="text" name="age" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>전화번호 * </td>
-			<td><input type="text" name="email" /></td>
+			<td colspan="2"><input type="text" name="phone" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>주소 * </td>
-			<td><input type="text" name="addr" /></td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="가입" />
-				<input type="button" value="취소" onclick="window.location.href='/spring/member/main.do'" /> 
+			<td>
+				<input type="text" id="add" name="addr" style="text-align:center; width:180px"/> 
+				<input type="button" value = "주소검색" onclick="addr_set()"/>
 			</td>
 		</tr>
+		<tr>
+			<td>상세 주소 *</td>
+			<td colspan="2"><input type="text" name="addr2" style="text-align:center; width:200px"> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center">
+				<input type="submit" value="가입" />
+				<input type="button" value="취소" onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" /> 
+			</td>
+		</tr> 
 	</table>
 	</form>
+
 </body>
 </c:if>
 </html>
