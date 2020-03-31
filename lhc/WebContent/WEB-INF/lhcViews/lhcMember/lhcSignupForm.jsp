@@ -106,7 +106,7 @@
 <body>
 	<br />
 	<h1 align="center">회원가입</h1>
-	<form action="/lhc/lhcMember/lhcSignupPro.lhc" method="post" name="inputForm" >
+	<form action="" method="post" name="inputForm" >
 	<table>
 		<tr>
 			<td>아이디 * </td>

@@ -2,5 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="a">
+<mapper namespace="lhcMember">
+
+	<insert id="insertMember" parameterType="lhcMemberVO">
+		insert into lhcmember(lhc_id,lhc_pw,lhc_name,lhc_age,lhc_phone,lhc_addr,lhc_reg)values(#{id},#{pw},#{name},#{age},#{phone},#{addr},sysdate)
+	</insert>
+
+	<select id="idPwCheck" parameterType="lhcMemberVO" resultType="int">
+		select count(*) from lhcmember where lhc_id=#{id} and lhc_pw=#{pw}
+	</select>
+
+
+
 </mapper>

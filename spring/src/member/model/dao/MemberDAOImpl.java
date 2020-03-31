@@ -12,6 +12,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession = null;
+	
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		
 		this.sqlSession = sqlSession;

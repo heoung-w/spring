@@ -81,5 +81,6 @@ public class LhcMemberVO {
 	public void setReg(Timestamp reg) {
 		this.reg = reg;
 	}
+	
 
 }

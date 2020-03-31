@@ -13,18 +13,28 @@
 <body>
 	<br />
 	<h1 align="center"> 메인페이지 </h1>
+	<form action = "/lhc/lhcMember/lhcLoginPro.lhc" method="post">
 	<table>
 		<tr>
-			<td> 로그인 원하시면 버튼을 누르세요 <br />
-				<button onclick="window.location.href='/spring/member/loginForm.do'" >로그인</button>
+			<td>아이디</td>
+			<td><input type="text" name="id" /></td>
+			<td rowspan="2">
+				<input type="checkbox" name="auto" value="1" /> 자동로그인 
 			</td>
 		</tr>
 		<tr>
-			<td>
-				<button onclick = "window.location.href='/spring/member/signupForm.do'" > 회원가입 </button>
+			<td>비밀번호</td>
+			<td><input type="password" name="pw" /></td>
+		</tr>
+		<tr>
+			<td colspan="3" align="right">
+				<input type="button" value="메인" onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" />
+				<input type="submit" value="로그인" />
+				<input type="button" value="회원가입" onclick="window.location.href='/lhc/lhcMember/lhcSignupForm.lhc'" />
 			</td>
 		</tr>
 	</table>
+	</form>
 	<br /><br /><br /><br />
 	<div align="center">
 		<img src="/spring/resource/img/beach.jpg" width="700" />
@@ -40,8 +50,8 @@
 	<table>
 		<tr>
 			<td>${sessionScope.memId}님 환영합니다.<br />
-				<button onclick="window.location.href='/spring/member/logout.do'" >로그아웃</button>
-				<button onclick="window.location.href='/spring/member/mypage.do'" >마이페이지</button>
+				<button onclick="window.location.href='/lhc/lhcMember/lhcLogout.lhc'" >로그아웃</button>
+				<button onclick="window.location.href='/lhc/lhcMember/lhcMypage.lhc'" >마이페이지</button>
 			</td>
 		</tr>
 	</table>

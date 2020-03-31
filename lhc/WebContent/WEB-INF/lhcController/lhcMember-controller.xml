@@ -16,5 +16,7 @@
 	
 	<!-- 각 package내에 있는 bean클래스는 객체 생성을 이렇게 해줘야 한다.  -->
 	<context:component-scan base-package="lhcMember.controller.bean"/>
-	
+	<bean id="lhcMemberDAO" class="lhcMember.model.dao.LhcMemberDAOImpl">
+		<property name="sqlSession" ref="sqlSession" ></property>
+	</bean>
 </beans>
