@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="lhcPc">
+
+	<select id="countAll" resultType="int">
+		select count(*) from lhcpcinfo
+	</select>
+
+	<select id="selectAll" parameterType="hashmap" resultType="LhcPcVO">
+		<![CDATA[
+		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg, r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg, rownum r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg
+		from lhcpcinfo order by lhc_num desc) order by lhc_num desc)
+		where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+
+	<insert id="insertPc" parameterType="LhcPcVO">
+		insert into lhcpcinfo(lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg) 
+		values(lhcpcinfo_seq.nextVal,#{lhc_name},#{lhc_img},#{lhc_phone},#{lhc_addr},#{lhc_info},#{lhc_vendor},#{lhc_seats},sysdate)
+	</insert>
+
+	<select id="getSearchPcCount" parameterType="hashmap" resultType="int">
+  		select count(*) from lhcpcinfo where ${sel} like '%'||#{search}||'%'
+  	</select>
+
+  	<select id="getSearchPCs" parameterType="hashmap" resultType="LhcPcVO">
+  		<![CDATA[
+	  		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info, lhc_seats, lhc_reg,r
+	  		from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,rownum r
+			from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg
+			from lhcpcinfo where ${sel} like '%'||#{search}||'%' order by lhc_num asc)order by lhc_num asc)
+			where r >= #{start} and r <= #{end}
+		]]>
+  	</select>
+</mapper>

@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="aa">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lhcBoard">
+
+	<select id="countAll" resultType="int">
+		select count(*) from lhcboard
+	</select>
+	
+	<select id="selectAll" parameterType="hashmap" resultType="LhcBoardVO">
+		<![CDATA[
+		select lhc_num, lhc_writer, lhc_subject, lhc_content, lhc_reg, lhc_readcount, r
+		from (select lhc_num, lhc_writer, lhc_subject, lhc_content, lhc_reg, lhc_readcount, rownum r
+		from (select lhc_num, lhc_writer, lhc_subject, lhc_content, lhc_reg, lhc_readcount
+		from lhcboard order by lhc_num desc) order by lhc_num desc)
+		where r >= #{start} and r <= #{end}
+		]]>
+	</select>
+	
+	<select id="maxNum" resultType="String">
+		select max(lhc_num) from lhcboard
+	</select>
+	
+	<insert id="insertArticle" parameterType="LhcBoardVO">
+		insert into lhcboard(lhc_num, lhc_writer, lhc_subject, lhc_content, lhc_reg, lhc_readcount)
+		values(lhcboard_seq.nextVal, #{lhc_writer}, #{lhc_subject}, #{lhc_content}, sysdate, 0)
+	</insert>
+	
+	<update id="updateReadCount" parameterType="int">
+		update lhcboard set lhc_readcount=lhc_readcount+1 where lhc_num=#{lhc_num}
+	</update>
+	
+	<select id="selectOne" parameterType="int" resultType="LhcBoardVO">
+		select * from lhcboard where lhc_num=#{lhc_num}
+	</select>
+	
+	<update id="updateArticle" parameterType="LhcBoardVO">
+		update lhcboard set lhc_subject=#{lhc_subject}, lhc_content=#{lhc_content} where lhc_num=#{lhc_num}
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		delete from lhcBoard where lhc_num=#{lhc_num}
+	</delete>
 </mapper>

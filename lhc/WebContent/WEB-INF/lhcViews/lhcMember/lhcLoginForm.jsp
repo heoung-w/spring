@@ -7,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-var zz=3;
-alert("zzz"+zz);
-</script>
+
 </body>
 </html>

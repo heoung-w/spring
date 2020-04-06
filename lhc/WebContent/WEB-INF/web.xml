@@ -29,6 +29,7 @@
   			<!-- 여기 안에다가 여러개 Controller xml파일을 넣을 수 있음. -->
 			/WEB-INF/lhcController/lhcMember-controller.xml
 			/WEB-INF/lhcController/lhcBoard-controller.xml			
+			/WEB-INF/lhcController/lhcPc-controller.xml			
 			/WEB-INF/lhcController/lhc-servlet.xml			
   		</param-value>
   	</init-param>

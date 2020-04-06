@@ -12,37 +12,41 @@
 		// 유효성 검사
 		function check(){
 			var inputs = document.inputForm;
-			if(!inputs.id.value){
+			if(!inputs.lhc_id.value){
 				alert("아이디를 입력하세요.");
 				inputs.id.focus();	// 아이디입력란에 커서 깜빡이게 focus주기 
 				return false;
 			}
-			if(!inputs.pw.value){
+			if(!inputs.lhc_pw.value){
 				alert("비밀번호를 입력하세요.");
 				return false;
 			}
-			if(!inputs.pwCh.value){
+			if(!inputs.lhc_pwCh.value){
 				alert("비밀번호 확인란을 입력하세요.");
 				return false;
 			}
-			if(inputs.pw.value != inputs.pwCh.value){
+			if(inputs.lhc_pw.value != inputs.lhc_pwCh.value){
 				alert("비밀번호를 동일하게 입력하세요");
 				return false;
 			}
-			if(!inputs.name.value){
+			if(!inputs.lhc_name.value){
 				alert("이름을 입력하세요.");
 				return false;
 			}
-			if(!inputs.age.value){
+			if(!inputs.lhc_age.value){
 				alert("나이를 입력하세요.");
 				return false;
 			}
-			if(!inputs.phone.value){
+			if(!inputs.lhc_phone.value){
 				alert("전화번호를 입력하세요.");
 				return false;
 			}
-			if(!inputs.addr.value){
+			if(!inputs.lhc_addr.value){
 				alert("주소를 입력하세요.");
+				return false;
+			}
+			if(!inputs.lhc_addr2.value){
+				alert("상세주소를 입력하세요.");
 				return false;
 			}
 		}
@@ -80,6 +84,8 @@
 			});
 		});
 	</script>
+	
+	
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
 			function addr_set(){
@@ -87,12 +93,10 @@
 			        oncomplete: function(data) {
 			        	console.log(data);
 			        	$("#add").val(data["address"]);
-			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 			        }
 			    }).open();
 			};
-		</script>
+	</script>
 	
 
 </head>
@@ -106,11 +110,11 @@
 <body>
 	<br />
 	<h1 align="center">회원가입</h1>
-	<form action="" method="post" name="inputForm" >
+	<form action="" method="post" name="inputForm" onsubmit="return check()"> 
 	<table>
 		<tr>
 			<td>아이디 * </td>
-			<td colspan="2"><input type="text" name="id" id="id" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="text" name="lhc_id" id="id" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>아이디 사용 가능 여부</td>
@@ -124,34 +128,41 @@
 		 -->
 		<tr>
 			<td>비밀번호 * </td>
-			<td colspan="2"><input type="password" name="pw" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="password" name="lhc_pw" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>비밀번호 확인 * </td>
-			<td colspan="2"><input type="password" name="pwCh" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="password" name="lhc_pwCh" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>이름 * </td>
-			<td colspan="2"><input type="text" name="name" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="text" name="lhc_name" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>나이 * </td>
-			<td colspan="2"><input type="text" name="age" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="text" name="lhc_age" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>전화번호 * </td>
-			<td colspan="2"><input type="text" name="phone" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="text" name="lhc_phone" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>주소 * </td>
 			<td>
-				<input type="text" id="add" name="addr" style="text-align:center; width:180px"/> 
+				<input type="text" id="add" name="lhc_addr" style="text-align:center; width:180px"/> 
 				<input type="button" value = "주소검색" onclick="addr_set()"/>
 			</td>
 		</tr>
 		<tr>
 			<td>상세 주소 *</td>
-			<td colspan="2"><input type="text" name="addr2" style="text-align:center; width:200px"> 
+			<td colspan="2"><input type="text" name="lhc_addr2" style="text-align:center; width:200px"> 
+			</td>
+		</tr>
+		<tr>
+			<td>고객/사업주</td>
+			<td>
+				<input type="radio" name="lhc_sep" value="c"/>고객
+				<input type="radio" name="lhc_sep" value="v"/>사업자
 			</td>
 		</tr>
 		<tr>

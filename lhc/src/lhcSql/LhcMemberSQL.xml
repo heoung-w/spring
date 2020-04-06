@@ -5,13 +5,34 @@
 <mapper namespace="lhcMember">
 
 	<insert id="insertMember" parameterType="lhcMemberVO">
-		insert into lhcmember(lhc_id,lhc_pw,lhc_name,lhc_age,lhc_phone,lhc_addr,lhc_reg)values(#{id},#{pw},#{name},#{age},#{phone},#{addr},sysdate)
+		insert into lhcmember(lhc_id, lhc_pw, lhc_name, lhc_age, lhc_phone, lhc_addr, lhc_reg, lhc_sep)values(#{lhc_id},#{lhc_pw},#{lhc_name},#{lhc_age},#{lhc_phone},#{lhc_addr},sysdate,#{lhc_sep})
 	</insert>
 
 	<select id="idPwCheck" parameterType="lhcMemberVO" resultType="int">
-		select count(*) from lhcmember where lhc_id=#{id} and lhc_pw=#{pw}
+		select count(*) from lhcmember where lhc_id=#{lhc_id} and lhc_pw=#{lhc_pw}
+	</select>
+	<select id="idPwCheck2" parameterType="String" resultType="String">
+		select lhc_pw from lhcmember where lhc_id=#{value}
 	</select>
 
+	<select id="selectMember" parameterType="lhcMemberVO" resultType="lhcMemberVO">
+		select * from lhcmember where lhc_id=#{lhc_id}
+	</select>
 
+	<update id="updateMember" parameterType="lhcMemberVO">
+		update lhcmember set lhc_pw=#{lhc_pw}, lhc_phone=#{lhc_phone}, lhc_addr=#{lhc_addr} where lhc_id=#{lhc_id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="hashmap">
+		delete from lhcmember where lhc_id=#{id} and lhc_pw=#{pw}
+	</delete>
+	
+	<select id="selectAll" parameterType="list">
+		select * from lhcmember
+	</select>
+	
+	<select id="getArticleMember" resultType="int">
+		select count(*) from lhcmember
+	</select>
 
 </mapper>

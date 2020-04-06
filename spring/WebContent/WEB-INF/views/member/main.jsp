@@ -13,7 +13,7 @@
 <body>
 	<br />
 	<h1 align="center"> 메인페이지 </h1>
-	<form action = "/lhc/lhcMember/lhcLoginPro.lhc" method="post">
+	<form action = "/spring/member/loginPro.lhc" method="post">
 	<table>
 		<tr>
 			<td>아이디</td>
@@ -28,9 +28,9 @@
 		</tr>
 		<tr>
 			<td colspan="3" align="right">
-				<input type="button" value="메인" onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" />
+				<input type="button" value="메인" onclick="window.location.href='/spring/member/main.do'" />
 				<input type="submit" value="로그인" />
-				<input type="button" value="회원가입" onclick="window.location.href='/lhc/lhcMember/lhcSignupForm.lhc'" />
+				<input type="button" value="회원가입" onclick="window.location.href='/spring/member/signupForm.do'" />
 			</td>
 		</tr>
 	</table>

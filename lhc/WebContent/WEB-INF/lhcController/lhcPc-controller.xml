@@ -7,18 +7,13 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd"
->
-	<!-- 각 package내에 있는 bean 클래스는 객체생성은 아래와 같이 행함  -->
-	<context:component-scan base-package="lhc.controller.bean" />
+	>
+<!-- 이 파일이 controller. dispatcher가 얘를 찾음. -->
 	
-	<bean id="lhcBoardDAO" class="lhc.model.dao.LhcBoardDAOImpl">
-		<property name="sqlSession" ref="sqlSession" />
+	<!-- 각 package내에 있는 bean클래스는 객체 생성을 이렇게 해줘야 한다.  -->
+	<context:component-scan base-package="lhc.controller.bean"/>
+	
+	<bean id="lhcPcDAO" class="lhc.model.dao.LhcPcDAOImpl">
+		<property name="sqlSession" ref="sqlSession" ></property>
 	</bean>
-	
 </beans>
-
-	<!-- DAO에 sqlSession받을 수 있게끔. -->
-	<!--<bean id="lhcBoardDAO" class="lhcBoard.model.dao.LhcBoardDAOImpl">
-		<property name="sqlSession" ref="sqlSession"/>
-		</bean> 
-	-->

@@ -78,7 +78,7 @@
 <body>
 	<br />
 	<h1 align="center">회원가입</h1>
-	<form action="/spring/member/signupPro.do" method="post" name="inputForm" >
+	<form action="/spring/member/signupPro.do" method="post" name="inputForm" onsubmit="return check()" >
 	<table>
 		<tr>
 			<td>아이디 * </td>
