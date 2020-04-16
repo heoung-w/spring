@@ -16,11 +16,13 @@
 <table>
 	<tr>
 		<td>
-			<button onclick="window.location.href='/lhc/lhcMember/'" >예약 내역</button>
+			<button onclick="window.location.href='/lhc/lhcMyChar/lhcAllChar.lhc'" >예약 내역</button>
 			<button onclick="window.location.href='/lhc/lhcMember/'" >찜 회원 리스트</button>
 			<button onclick="window.location.href='/lhc/lhcMember/'" >메뉴 등록</button>
-			<button onclick="window.location.href='/lhc/lhcMember/'" >PC 정보</button>
+			<button onclick="window.location.href='/lhc/lhcPc/lhcPcRegisterForm.lhc'" >신규pc등록요청</button>
+			<button onclick="window.location.href='/lhc/lhcPc/lhcPcContent.lhc'" >PC 정보</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcModifyForm.lhc'" >회원정보수정</button>
+			<button onclick="window.location.href='/lhc/lhcMember/lhcDeleteForm.lhc?sep=${sep}'" >회원정보삭제</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" >메인</button>
 		</td>
 	</tr>

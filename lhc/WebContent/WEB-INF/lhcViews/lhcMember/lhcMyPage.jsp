@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 </head>
 <script></script>
 <c:if test="${sessionScope.memId ==null}">
@@ -26,7 +25,7 @@
 	<tr>
 		<td>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMyFavoriteListForm.lhc'" >pc방 찜목록</button>
-			<button onclick="window.location.href='/lhc/lhcMember/lhcMyCharForm.lhc'" >예약 내역</button>
+			<button onclick="window.location.href='/lhc/lhcMyChar/lhcAllChar.lhc'" >예약 내역</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMyPointForm.lhc'" >포인트 충전</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcModifyForm.lhc'" >회원정보수정</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcDeleteForm.lhc'" >회원정보삭제</button>

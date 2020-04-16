@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="lhcPcMenu">
+
+	<select id="countAll" resultType="int">
+		select count(*) from lhcmenu
+	</select>
+
+	<insert id="insertPcMenu" parameterType="LhcPcMenuVO">
+		insert into lhcmenu values(lhcmenu_seq.nextVal,#{lhc_num},#{lhc_img},#{lhc_name},#{lhc_price})
+	</insert>
+  	
+  	<select id="selectOnePcMenu" parameterType="int" resultType="LhcPcMenuVO"> 
+  		select * from lhcmenu where lhc_num=#{lhc_num} 
+  	</select>
+
+</mapper>

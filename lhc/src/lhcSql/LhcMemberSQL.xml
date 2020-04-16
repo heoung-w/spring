@@ -27,12 +27,25 @@
 		delete from lhcmember where lhc_id=#{id} and lhc_pw=#{pw}
 	</delete>
 	
-	<select id="selectAll" parameterType="list">
-		select * from lhcmember
+	<select id="selectAll" parameterType="hashmap" resultType="lhcMemberVO">
+		<![CDATA[
+		select lhc_id, lhc_pw, lhc_name, lhc_age,lhc_phone, lhc_addr,lhc_favorite, lhc_like, lhc_money, lhc_reg, lhc_sep, r
+		from (select lhc_id, lhc_pw, lhc_name, lhc_age,lhc_phone, lhc_addr,lhc_favorite, lhc_like, lhc_money, lhc_reg, lhc_sep, rownum r
+		from (select lhc_id, lhc_pw, lhc_name, lhc_age,lhc_phone, lhc_addr,lhc_favorite, lhc_like, lhc_money, lhc_reg, lhc_sep
+		from lhcMember where lhc_sep = #{sep})) where r >= #{start} and r <= #{end}
+		]]>
 	</select>
 	
-	<select id="getArticleMember" resultType="int">
-		select count(*) from lhcmember
+	<select id="getCountMember" parameterType="String" resultType="int">
+		select count(*) from lhcmember where lhc_sep = #{value}
+	</select>
+	
+	<update parameterType="hashmap" id="updatePoint">
+		update lhcMember set lhc_money = lhc_money + #{lhc_money} where lhc_id = #{lhc_id}
+	</update>
+	
+	<select id="selectLikeNum" parameterType="String" resultType="String">
+		select lhc_like from lhcmember where lhc_id = #{value}
 	</select>
 
 </mapper>

@@ -5,36 +5,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 <mapper namespace="lhcPc">
 
-	<select id="countAll" resultType="int">
-		select count(*) from lhcpcinfo
+	<select id="resCountAll" resultType="int" parameterType="String">
+		select count(*) from lhcpcinfo where lhc_state = #{state}
+	</select>
+	
+	<select id="beforeCountAll" resultType="int" parameterType="String">
+		select count(*) from lhcpcinfo	where lhc_state = #{state}
+	</select>
+	<select id="getLikeCount"  parameterType="int" resultType="int">
+		select lhc_like from lhcpcinfo where lhc_num=#{value}
 	</select>
 
-	<select id="selectAll" parameterType="hashmap" resultType="LhcPcVO">
+	<select id="selectResAll" parameterType="hashmap" resultType="lhcPcVO">
 		<![CDATA[
-		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg, r
-		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg, rownum r
-		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg
-		from lhcpcinfo order by lhc_num desc) order by lhc_num desc)
+		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state, r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state, rownum r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state
+		from lhcpcinfo where lhc_state = #{state} order by lhc_num desc) order by lhc_num desc)
 		where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 
-	<insert id="insertPc" parameterType="LhcPcVO">
-		insert into lhcpcinfo(lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg) 
-		values(lhcpcinfo_seq.nextVal,#{lhc_name},#{lhc_img},#{lhc_phone},#{lhc_addr},#{lhc_info},#{lhc_vendor},#{lhc_seats},sysdate)
+	<insert id="insertPc" parameterType="lhcPcVO">
+		insert into lhcpcinfo(lhc_num, lhc_name,lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor,lhc_seats,lhc_reg,lhc_lat, lhc_lng,lhc_state,lhc_like)
+		values(lhcpcinfo_seq.nextVal,#{lhc_name},#{lhc_img},#{lhc_phone},#{lhc_addr},#{lhc_info},#{lhc_vendor},#{lhc_seats},sysdate,#{lhc_lat},#{lhc_lng},#{lhc_state},0)
 	</insert>
 
 	<select id="getSearchPcCount" parameterType="hashmap" resultType="int">
-  		select count(*) from lhcpcinfo where ${sel} like '%'||#{search}||'%'
+  		select count(*) from lhcpcinfo where ${sel} like '%'||#{search}||'%' and lhc_state = 'a'
   	</select>
 
-  	<select id="getSearchPCs" parameterType="hashmap" resultType="LhcPcVO">
+  	<select id="getSearchPcs" parameterType="hashmap" resultType="lhcPcVO">
   		<![CDATA[
-	  		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info, lhc_seats, lhc_reg,r
-	  		from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,rownum r
-			from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg
-			from lhcpcinfo where ${sel} like '%'||#{search}||'%' order by lhc_num asc)order by lhc_num asc)
+	  		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,r
+	  		from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,rownum r
+			from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state
+			from lhcpcinfo where ${sel} like '%'||#{search}||'%' and lhc_state = 'a' order by lhc_num desc)order by lhc_num desc)
 			where r >= #{start} and r <= #{end}
 		]]>
   	</select>
+  	
+  	<update id="statePc" parameterType="int">
+  		update lhcpcinfo set lhc_state = 'a' where lhc_num = #{num}
+  	</update>
+  	
+  	 <select id="selectOnePc" parameterType="int" resultType="lhcPcVO" > 
+  		select * from lhcpcinfo where lhc_num=#{num} 
+  	</select>
+  	
+  	<select id="selectOnePcChar" parameterType="String" resultType="int" > 
+  		select lhc_num from lhcpcinfo where lhc_vendor=#{id} 
+  	</select>
+  	
+  	<delete id="deletePc" parameterType="String">
+  		delete from lhcpcinfo where lhc_vendor = #{id}
+  	</delete>
+  	
+  	<delete id="pcDelete" parameterType="int">
+  		delete from lhcpcinfo where lhc_num = #{num}
+  	</delete>
+<!--   	
+  	<select id="getSeats" parameterType="LhcPcVO" resultType="LhcPcVO">
+  		select lhc_seats from lhcpcinfo where lhc_addr=#{lhc_addr}
+  	</select>
+  	 -->
+  	
 </mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="lhcPcSpec">
+
+	<select id="countAll" resultType="int">
+		select count(*) from lhcspec
+	</select>
+
+	<insert id="insertPcSpec" parameterType="lhcPcSpecVO">
+		insert into lhcspec values(lhcspec_seq.nextVal,#{lhc_name},#{lhc_cpu},#{lhc_graphic},#{lhc_memory})
+	</insert>
+  	
+  	<select id="selectOnePcSpec" parameterType="String" resultType="lhcPcSpecVO"> 
+  		select * from lhcspec where lhc_name = #{lhc_name} 
+  	</select>
+
+</mapper>

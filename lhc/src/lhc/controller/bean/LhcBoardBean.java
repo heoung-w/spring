@@ -42,11 +42,6 @@ public class LhcBoardBean {
 		
 		number = count - (currentPage-1) * pageSize;
 		
-		// 블랙박스 테스트
-		System.out.println("LhcBoardBean.java에서 count는? " + count);
-		System.out.println("LhcBoardBean.java에서 number는? " + number);
-		System.out.println("LhcBoardBean.java에서 currentPage는? " + currentPage);
-		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);

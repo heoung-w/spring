@@ -18,7 +18,6 @@
 	}
 
 </style>
-
     <nav class="navbar navbar-inverse" style="margin-top: -30px;">
       <div class="container">
         <div class="navbar-header">
@@ -46,6 +45,7 @@
           </ul>
          </div>
     </nav>
+   
 	<!-- 헤더 -->
 <c:if test="${sessionScope.memId==null}">
 		<table style="border: hidden; width: 100%; align-self: center; height:30%; display:table-header-group;">
@@ -53,7 +53,7 @@
 				<td style="padding-right: 532px; border: hidden;">
 				</td>
 				<td style="border: hidden; padding-right: 450px;">
-					<form action="/lhc/lhcMember/.lhc" > <!-- 페이지명 정하기 -->
+					<form action="/lhc/lhcPc/lhcPcListAll.lhc" > <!-- 페이지명 정하기 -->
 						<select name="sel" style="color: black; background-color: white">
 							<option value="lhc_addr" >주소</option>
 							<option value="lhc_name" style="color: black;">PC방 명</option>
@@ -61,8 +61,10 @@
 						<input type="text" name="search" />
 						<input type="submit" value="검색" />
 					</form>
-						<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'">메인으로</button>	
 				</td>
+		</table>
+		<table>
+			<tr>
 				<td style="border: hidden; padding-right: 100px;">
 					<form action="/lhc/lhcMember/lhcLoginPro.lhc" method="post">
 						<table>
@@ -97,7 +99,7 @@
 					<button onclick="window.location.href='/lhc/lhcMember/.lhc'">카테고리 보기</button> <!-- 페이지명 정하기 -->
 				</td>
 				<td style="border: hidden;">
-					<button onclick="window.location.href='/lhc/lhcMember/.lhc'">공지사항</button> <!-- 페이지명 정하기 -->					
+					<button onclick="window.location.href='/lhc/lhcBoard/lhcList.lhc'">공지사항</button> <!-- 페이지명 정하기 -->					
 				</td>
 			</tr>
 		</table>
@@ -109,15 +111,14 @@
 				<td style="padding-right: 532px; border: hidden;">
 				</td>
 				<td style="border: hidden; padding-right: 600px;">
-					<form action="/lhc/lhcMember/.lhc" > <!-- 페이지명 정하기 -->
+					<form action="/lhc/lhcPc/lhcPcListAll.lhc" > 
 						<select name="sel" style="color: black; background-color: white">
 							<option value="lhc_addr" >주소</option>
 							<option value="lhc_name" style="color: black;">PC방 명</option>
 						</select>
 						<input type="text" name="search" />
-						<input type="submit" value="검색" />
+						<input type="submit" value="검색" />	
 					</form>
-						<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'">메인으로</button>	
 				</td>
 				<td style="border: hidden; padding-right: 100px;">
 					${sessionScope.memId}님 환영합니다.<br />
@@ -129,7 +130,7 @@
 		<table style="border: hidden; width: 100%; height:30%;">
 			<tr>
 				<td style="border: hidden;">
-					<button onclick="window.location.href='/lhc/lhcMember/.lhc'">pc방 전체 보기</button> <!-- 페이지명 정하기 -->
+					<button onclick="window.location.href='/lhc/lhcPc/lhcPcListAll.lhc'">pc방 전체 보기</button> <!-- 페이지명 정하기 -->
 				</td>
 				<td style="border: hidden;">
 					<button onclick="window.location.href='/lhc/lhcMember/.lhc'">카테고리 보기</button> <!-- 페이지명 정하기 -->

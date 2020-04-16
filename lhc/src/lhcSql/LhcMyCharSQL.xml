@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lhcMyChar">
+<insert id="insertMyChar" parameterType="lhcMyCharVO">
+	insert into lhcmychar values(lhcmychar_seq.nextVal,#{lhc_num},#{lhc_id},#{lhc_name},#{lhc_seats},#{lhc_price},sysdate)
+</insert>
+<select id="selectMyCount" parameterType="String" resultType= "int">
+	select count(*) from lhcmychar where lhc_id = #{value}
+</select>
+
+<select id="selectAllCount" resultType="int">
+	select count(*) from lhcmychar
+</select>
+
+<select id="selectVendorCount" parameterType="int" resultType="int">
+	select count(*) from lhcmychar where lhc_num = #{value}
+</select>
+
+<select id="selectMyChar" parameterType="hashmap" resultType = "lhcMyCharVO">
+	<![CDATA[
+		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end rownum r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
+		from lhcmychar where lhc_id = #{id} order by lhc_count desc)order by lhc_count desc)
+		where r >= #{start} and r <=#{end}
+	]]>
+</select>
+
+<select id="selectAllChar" parameterType="hashmap" resultType = "lhcMyCharVO" >
+	<![CDATA[
+		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end, rownum r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
+		from lhcmychar order by lhc_count desc)order by lhc_count desc)
+		where r >= #{start} and r <=#{end}
+	]]>
+</select>
+
+<select id="selectVendorChar" parameterType="hashmap" resultType ="lhcMyCharVO">
+	<![CDATA[
+		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end, rownum r
+		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
+		from lhcmychar where lhc_num = #{num} order by lhc_count desc)order by lhc_count desc)
+		where r >= #{start} and r <=#{end}
+	]]>
+</select>
+
+
+</mapper>

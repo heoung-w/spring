@@ -47,8 +47,12 @@ public class LhcMemberDAOImpl implements LhcMemberDAO{
 	}
 
 	@Override
-	public List selectAll() throws Exception {
-		List list = null;
+	public List selectAll(int startRow, int endRow, String sep) throws Exception {
+		HashMap map = new HashMap();
+		map.put("sep", sep);
+		map.put("start", startRow);
+		map.put("end", endRow);
+		List list = sqlSession.selectList("lhcMember.selectAll", map);
 		return list;
 	}
 
@@ -57,7 +61,6 @@ public class LhcMemberDAOImpl implements LhcMemberDAO{
 		
 		
 		LhcMemberVO vo = sqlSession.selectOne("lhcMember.selectMember", id);
-		
 		
 		return vo;
 	}
@@ -79,18 +82,49 @@ public class LhcMemberDAOImpl implements LhcMemberDAO{
 	
 
 	@Override
-	public int idAvailCheck(String id) throws Exception {
-		return 0;
+	public int idAvailCheck(String lhc_id) throws Exception {
+		int idcheck=(Integer)sqlSession.selectOne("lhcMember.idAvailCheck", lhc_id);
+		// idcheck=0 : db에 존재하지 않다=>사용가능한 id,
+		// idcheck=1 : db에 존재함. ->사용불가능한 id
+		return idcheck;
 	}
 
 	@Override
-	public int getArticleMember() throws Exception {
-		int count = (Integer)sqlSession.selectOne("lhcmember.getArticleMember");
+	public int getCountMember(String sep) throws Exception {
+		int count = sqlSession.selectOne("lhcMember.getCountMember", sep);
 		
 		return count;
 	}
 
 
+	@Override
+	public int updatePoint(String lhc_id, int lhc_money) throws Exception {
+		
+		HashMap map = new HashMap();
+		map.put("lhc_id", lhc_id);
+		map.put("lhc_money", lhc_money);
+		sqlSession.update("lhcMember.updatePoint", map);
+		int result = 1;
+		
+		return result;
+	}
+
+	@Override
+	public String likeCheck(String id) throws Exception {
+		String likeNum = null;
+		likeNum = sqlSession.selectOne("lhcMember.selectLikeNum", id);
+	
+		return likeNum;
+	}
+
+	@Override
+	public void updateLikeNum(String id, String number) throws Exception {
+		HashMap map = new HashMap();
+		map.put("id", id);
+		map.put("number", number);
+		sqlSession.update("lhcMember.updateLikeNum", map);
+		
+	}
 
 	
 	

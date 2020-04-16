@@ -11,6 +11,10 @@
 		<typeAlias type="lhc.model.vo.LhcMemberVO" alias="lhcMemberVO"/>
 		<typeAlias type="lhc.model.vo.LhcBoardVO" alias="lhcBoardVO"/>
 		<typeAlias type="lhc.model.vo.LhcPcVO" alias="lhcPcVO" />
+		<typeAlias type="lhc.model.vo.LhcPcMenuVO" alias="lhcPcMenuVO"/>
+		<typeAlias type="lhc.model.vo.LhcPcSpecVO" alias="lhcPcSpecVO"/>
+		<typeAlias type="lhc.model.vo.LhcSeatsVO" alias="lhcSeatsVO" />
+		<typeAlias type="lhc.model.vo.LhcMyCharVO" alias="lhcMyCharVO" />
 	</typeAliases>
  	
  	<!-- 매퍼 경로 세팅 : sql쿼리문들이 작성되는 xml파일들의 경로를 설정-->
@@ -18,6 +22,10 @@
  		<mapper resource="/lhcSql/LhcMemberSQL.xml"/>
  		<mapper resource="/lhcSql/LhcBoardSQL.xml"/>
  		<mapper resource="/lhcSql/LhcPcSQL.xml"/>
+ 		<mapper resource="/lhcSql/LhcSeatsSQL.xml" />
+ 		<mapper resource="/lhcSql/LhcPcMenuSQL.xml"/>
+ 		<mapper resource="/lhcSql/LhcPcSpecSQL.xml"/>
+ 		<mapper resource="/lhcSql/LhcMyCharSQL.xml"/>
  	</mappers>
 
  </configuration>

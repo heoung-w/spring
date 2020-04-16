@@ -45,10 +45,7 @@
 				alert("주소를 입력하세요.");
 				return false;
 			}
-			if(!inputs.lhc_addr2.value){
-				alert("상세주소를 입력하세요.");
-				return false;
-			}
+
 		}
 		// 아이디 중복 검사 함수
 		// inputForm 매개변수에 form 전체를 받음.(this.form)
@@ -70,12 +67,12 @@
 	<script src= "https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			$("#id").change(function(){
-				id = $("#id").val();
+			$("#lhc_id").change(function(){
+				lhc_id = $("#lhc_id").val();
 				$.ajax({
 					type : "post",
 					url : "/lhc/lhcMember/lhcAjaxIdAvail.lhc",	// 처리할 곳으로 보내주고
-					data : {id : id},
+					data : {lhc_id : lhc_id},
 					success : function(data){	// 리턴값을 여기서 받는다 yes or no 
 						console.log(data);
 						$("#idCheckRes").val(data);
@@ -114,7 +111,7 @@
 	<table>
 		<tr>
 			<td>아이디 * </td>
-			<td colspan="2"><input type="text" name="lhc_id" id="id" style="text-align:center; width:200px"/></td>
+			<td colspan="2"><input type="text" name="lhc_id" id="lhc_id" style="text-align:center; width:200px"/></td>
 		</tr>
 		<tr>
 			<td>아이디 사용 가능 여부</td>
@@ -151,11 +148,6 @@
 			<td>
 				<input type="text" id="add" name="lhc_addr" style="text-align:center; width:180px"/> 
 				<input type="button" value = "주소검색" onclick="addr_set()"/>
-			</td>
-		</tr>
-		<tr>
-			<td>상세 주소 *</td>
-			<td colspan="2"><input type="text" name="lhc_addr2" style="text-align:center; width:200px"> 
 			</td>
 		</tr>
 		<tr>

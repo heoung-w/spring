@@ -7,7 +7,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지게시판</title>
-	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<br />

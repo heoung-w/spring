@@ -24,7 +24,6 @@ public class LhcBoardDAOImpl implements LhcBoardDAO {
 		}else {
 			num = 1;
 		}
-		
 		sqlSession.insert("lhcBoard.insertArticle", vo);
 		
 	}

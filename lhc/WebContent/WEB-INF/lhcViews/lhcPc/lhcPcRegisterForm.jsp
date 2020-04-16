@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>lhcPcRegisterForm</title>
-<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css" >
 	<script>
 		// 유효성 검사
 		function PCcheck(){
@@ -39,7 +38,6 @@
 		}	
 	</script>
 </head>
-<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include>
 <c:if test="${sessionScope.memId==null}">
 	<script>
 		alert("로그인 후 이용해 주세요");
@@ -54,6 +52,7 @@
 	<form action="/lhc/lhcPc/lhcPcRegisterPro.lhc" method="post" name="RegisterForm" onsubmit="return PCcheck()" enctype="multipart/form-data">
 		<%--숨겨서 글 속성에 관련된 데이터 pro에 전송 --%>
 		<input type="hidden" name="lhc_num" value="${lhc_num}"/>
+		<input type="hidden" name="lhc_state" value="b"/>
 		
 		<table>
 			<tr>
@@ -62,7 +61,7 @@
 			</tr>
 			<tr>
 				<td>사진</td>
-				<td align="left"><input type="file" name="lhc_img" /></td>
+				<td align="left"><input type="file" name="lhc_img"/></td>
 			</tr>
 			<tr>
 				<td>전화번호</td>
@@ -78,18 +77,21 @@
 				<td><textarea rows="20" cols="70" name="lhc_info"></textarea></td>
 			</tr>
 			<tr>
-				<td>업주 아이디</td>
-				<td align="left"><input type="text" name="lhc_vendor" id="lhc_vendor"/></td>
-			</tr>
-			<tr>
 				<td>좌석 수</td>
 				<td align="left"><input type="text" name="lhc_seats"/></td>
+			</tr>
+			<tr>
+				<td>위도</td>
+				<td align="left"><input type="text" name="lhc_lat"/></td>
+			</tr>			
+			<tr>
+				<td>경도</td>
+				<td align="left"><input type="text" name="lhc_lng"/></td>
 			</tr>			
 			<tr>
 				<td colspan="2" align="right">
 					<input type="submit" value="PC방 등록"/>
-					<input type="reset" value="재작성"/>
-					<input type="button" value="PC방 리스트" onclick="window.location='/lhc/lhcMember/lhcPcListAll.lhc'"/>
+					<input type="button" value="PC방 리스트" onclick="window.location='/lhc/lhcPc/lhcPcListAll.lhc'"/>
 				</td>
 			</tr>
 			

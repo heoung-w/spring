@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 </head>
 <script>
 </script>
@@ -16,10 +15,10 @@
 <table>
 	<tr>
 		<td>
-			<button onclick="window.location.href='/lhc/lhcMember/'" >매출 내역</button>
-			<button onclick="window.location.href='/lhc/lhcMember/lhcMemberList.lhc'" >일반 회원</button>
-			<button onclick="window.location.href='/lhc/lhcMember/'" >업주 회원</button>
-			<button onclick="window.location.href='/lhc/lhcMember/'" >신규 pc 등록</button>
+			<button onclick="window.location.href='/lhc/lhcMyChar/lhcAllChar.lhc'" >매출 내역</button>
+			<button onclick="window.location.href='/lhc/lhcPc/lhcStatePcList.lhc'" >등록 리스트</button>
+			<button onclick="window.location.href='/lhc/lhcMember/lhcMemberList.lhc?sep=c'" >일반 회원</button>
+			<button onclick="window.location.href='/lhc/lhcMember/lhcMemberList.lhc?sep=v'" >업주 회원</button>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" >메인</button>
 		</td>
 	</tr>
