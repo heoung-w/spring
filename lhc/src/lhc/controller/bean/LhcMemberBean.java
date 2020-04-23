@@ -4,6 +4,7 @@ import java.io.IOError;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -26,36 +28,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpServerErrorException;
 
 import lhc.model.dao.LhcMemberDAOImpl;
+import lhc.model.dao.LhcPcDAO;
 import lhc.model.dao.LhcPcDAOImpl;
 import lhc.model.vo.LhcMemberVO;
+import lhc.model.vo.LhcPcVO;
 
 
 @Controller
 @RequestMapping("/lhcMember/")
 public class LhcMemberBean {
-	static PrintWriter out=null;
-	  
-	@ModelAttribute
-	public void Writer(HttpServletResponse response) throws IOException {
-		response.setContentType("text/html;charset=utf-8");
-		out=response.getWriter();
-	}
-	
-	public Model model;
-	
-	@ModelAttribute
-	public void info(Model model) {
-		this.model = model;
-	}
-	
 	
 	@Autowired
 	private LhcMemberDAOImpl lhcMemberDAO = null;
-	@Autowired
-	private LhcPcDAOImpl lhcPcDAO = null;
-	
 	// DI,IOC,AOP
-
+	@Autowired
+	private LhcPcDAOImpl lhcPcDAO=null;
 	// RequestMapping을 **로 받고 return null로 해주면
 	// jsp 파일 이름과 요청한 uri 이름이 같은 곳을 알아서 찾아 가줌.
 
@@ -75,20 +62,19 @@ public class LhcMemberBean {
 	@RequestMapping("**")
 	public String all(HttpServletRequest request) {
 		String uri = request.getRequestURI();
-		System.out.println(uri);
+		//System.out.println(uri);
 		uri = uri.substring(5, uri.length() - 4);
 		return uri;
 	}
 	
 	@RequestMapping("lhcMain.lhc")
-	public String lhcMain(HttpSession session, String pageNum) throws Exception{
+	public String lhcMain(HttpSession session, String pageNum, Model model) throws Exception{
 		
 		if(session.getAttribute("memId")!=null) {
-			//회원 한 명의 모든 정보 꺼내오기(내 주변 pc방 지도 구현)
-			String lhc_id = (String)session.getAttribute("memId");
-			LhcMemberVO member = lhcMemberDAO.selectMember(lhc_id);			
-			model.addAttribute("member", member); // 내 주변 pc할라고 회원 정보 LhcMemberVO로 담아서 넘겨줌.
-		}
+		//회원 한 명의 모든 정보 꺼내오기(내 주변 pc방 지도 구현)
+		String lhc_id = (String)session.getAttribute("memId");
+		LhcMemberVO member = lhcMemberDAO.selectMember(lhc_id);			
+		
 		// pc방 리스트 뽑기(pc방 여러개 지도 구현)
 		if(pageNum == null) {
 			pageNum ="1";
@@ -107,22 +93,41 @@ public class LhcMemberBean {
 		}else{
 			pcList = Collections.EMPTY_LIST;	// null 대신 처리
 		}
-		//System.out.println(pcList+"pcList");
 		
+		LhcPcVO pc = lhcPcDAO.getPc(lhc_id);
+
+		if(lhc_id.equals("admin")) { //관리자 위치 띄우는 main	
+			model.addAttribute("member", member);			
+			return "lhcAdmin/lhcMain";
+		}else if(!lhc_id.equals("admin")) {
+			if(member.getLhc_sep().equals("v")) { // 업주의 pc방 위치 띄우는 main				
+				state = "b";
+				model.addAttribute("pc", pc);
+				model.addAttribute("state", state);
+				model.addAttribute("pageNum", pageNum);
+				model.addAttribute("member", member);
+				return "lhcVendor/lhcMain";		
+			}	
+		}
+		model.addAttribute("member", member); // 내 주변 pc할라고 회원 정보 LhcMemberVO로 담아서 넘겨줌.
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);
 		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("count", count);
 		model.addAttribute("pcList", pcList);
+		model.addAttribute("state", state);
 		//model.addAttribute("number", number);
-		
+		}
 		return "lhcMember/lhcMain";
+		
 	}
 	
+
 	// 아이디 중복 체크 하는 메서드
-	@RequestMapping("lhcAjaxIdAvail.lhc")
-	public ResponseEntity<String> lhcAjaxIdAvail(String lhc_id) throws Exception {//ResponseEntity=>응답해주는 객체들 타입 정할 수 있음 
+	@RequestMapping("lhcAjaxIdAvail.lhc") public ResponseEntity<String>
+	lhcAjaxIdAvail(String lhc_id) throws Exception {//ResponseEntity=>응답해주는 객체들 타입 정할 수 있음 
 		String result="";
 	  
 		int idcheck=(Integer)lhcMemberDAO.idAvailCheck(lhc_id);
@@ -132,6 +137,7 @@ public class LhcMemberBean {
 		}else if(idcheck==0){
 			result="사용 가능한 id"; 
 		} 
+		//System.out.println(result); 
 		HttpHeaders responseHeader=new HttpHeaders();//헤더 객체를 만들어
 		responseHeader.add("Content-Type", "text/html;charset=utf-8");//헤더 정보 추가
 		return new ResponseEntity<String>(result, responseHeader, HttpStatus.CREATED); 
@@ -140,7 +146,7 @@ public class LhcMemberBean {
 	// 회원가입
 	@RequestMapping("lhcSignupForm.lhc")
 	public String signup(HttpServletRequest request, HttpServletResponse response, LhcMemberVO vo, String lhc_addr, String lhc_addr2) throws Exception {
-		System.out.println(request.getMethod());
+		//System.out.println(request.getMethod());
 		if (request.getMethod().equals("POST")) {
 			 lhcMemberDAO.insertMember(vo);
 			// 다른폴더로 갈때는 ../lhcBoard/lhcMain.lhc
@@ -155,8 +161,11 @@ public class LhcMemberBean {
 	// 로그인
 	@RequestMapping("lhcLoginPro.lhc")
 	public String login(HttpServletResponse response, HttpSession session, LhcMemberVO vo, String auto, Model model) throws Exception {
-
+		PrintWriter out = null;
+		response.setContentType("text/html;charset=utf-8");
+		out=response.getWriter();
 		int check = lhcMemberDAO.idPwCheck(vo);
+		//System.out.println(check);
 		if (check == 1) {
 			session.setAttribute("memId", vo.getLhc_id());
 			out.write("<script>");
@@ -205,11 +214,12 @@ public class LhcMemberBean {
 		return "lhcMember/lhcMyPage";
 	}
 	
-	
 	// 아이디 삭제
 	@RequestMapping("lhcDeleteForm.lhc")
-	public String deleteForm(HttpSession session,String pw, String sep) throws Exception {
-		System.out.println(sep + "?? 업주냐 회원이냐");
+	public String deleteForm(HttpSession session,String pw, Model model, HttpServletResponse response) throws Exception {
+		PrintWriter out = null;
+		response.setContentType("text/html;charset=utf-8");
+		out=response.getWriter();
 		if(pw==null) {
 			out.write("<script>");
 			out.write("var userInput = prompt(\"당신의 패스워드는 무엇입니까?\"+\"\");");
@@ -219,9 +229,7 @@ public class LhcMemberBean {
 		}
 		String id = (String)session.getAttribute("memId");
 		String pw2=lhcMemberDAO.idPwCheck2((String)session.getAttribute("memId"));
-		if(sep.equals("v")) {
-			lhcPcDAO.deletePc(id);
-		}
+		//System.out.println(pw);
 		if(pw.equals(pw2)) {
 			lhcMemberDAO.deleteMember(id, pw);
 			session.invalidate();
@@ -243,17 +251,25 @@ public class LhcMemberBean {
 	
 	// 회원 , 업주, 관리자 페이지 각각 분리
 	@RequestMapping("lhcMyPage.lhc")
-	public String mypage(HttpSession session, LhcMemberVO vo) throws Exception{
+	public String mypage(HttpSession session, LhcMemberVO vo, Model model) throws Exception{
+		
+		String pageNum = null;
+		if(pageNum == null) {pageNum ="1";}
 		
 		String id = (String)session.getAttribute("memId");
 		vo = lhcMemberDAO.selectMember(id);
 		String sep = vo.getLhc_sep();
-		if(id.equals("admin")){
+		LhcPcVO pc = lhcPcDAO.getPc(id);
+		String state = "a";
+		if(id.equals("admin")) {
 			return "lhcAdmin/lhcMyPage";
 			
 		}else if(!id.equals("admin")) {
 			
-			if(sep.equals("v")) {
+			if(vo.getLhc_sep().equals("v")) {
+				model.addAttribute("pageNum", pageNum);
+				model.addAttribute("state", state);
+				model.addAttribute("pc", pc);
 				model.addAttribute("sep", sep);
 				return "lhcVendor/lhcMyPage";
 			}
@@ -264,7 +280,7 @@ public class LhcMemberBean {
 	
 	// 회원 리스트 ( 관리자 , 업주 ) 분리
 	@RequestMapping("lhcMemberList.lhc")
-	public String memberList(HttpSession session, String pageNum, String sep)throws Exception {
+	public String memberList(HttpSession session, Model model, String pageNum, String sep)throws Exception {
 		String id = (String)session.getAttribute("memId");
 		if(pageNum == null) {pageNum ="1";}
 		int pageSize = 10;
@@ -294,7 +310,7 @@ public class LhcMemberBean {
 		model.addAttribute("count", count);
 		model.addAttribute("number", number);
 		if(sep.equals("v")) {
-			return "lhcAdmin/lhcVendorList";
+			return "lhcAdmin/lhcVenderList";
 		}else {
 			return "lhcAdmin/lhcMemberList";
 		}
@@ -336,44 +352,195 @@ public class LhcMemberBean {
 
 		return "lhcMember/lhcMyPointChargePro";
 	}
+
+
+	//# 1 , 2. 찜 하는 
+	@RequestMapping("lhcMyFavorite.lhc")
+	public String lhcMyFavorite(String state, String pageNum, String lhc_id, String lhc_num, Model model, HttpSession session)throws Exception{
+		String id = (String)session.getAttribute("memId");
+		//lhc_id ==> 찜 누른 회원 id // lhc_num ==> 찜 당한 pc방 num.
+		
+		// #1. 찜 리스트 select하는 sql 
+		String fav = (String)lhcMemberDAO.selectFav(lhc_id);
+		//System.out.println(fav+"   fav!");
+		
+		LhcMemberVO vo = new LhcMemberVO();
+		String num = null;
+		if(fav == null) {	//찜 컬럼에 아무것도 없으면,
+			num = ","+ lhc_num + ","; //번호 앞에 ,를 넣어주고 시작		
+			// #2. 찜 넣어주는 sql
+			lhcMemberDAO.updateFav(num, lhc_id);
+		}else{						
+			String [] fav_list = fav.split(",");
+			int already = 0;
+			for(int i=1; i<fav_list.length; i++) {
+				String favOne = fav_list[i];
+				//System.out.println(favOne+"   => favOne");
+				//System.out.println(lhc_num+"lhc_num.................");
+				if(favOne.equals(lhc_num)) {
+					//System.out.println(favOne+"  favOne은 ");
+					//System.out.println(lhc_num+"  lhc_num이랑 같다?");
+					already += 1;
+				}
+			}
+			//System.out.println(already+"   already 개");
+			if(already == 0) {
+				num = fav + lhc_num + ","; 	
+				// #2. 찜 넣어주는 sql
+				lhcMemberDAO.updateFav(num, lhc_id);
+			}
+		}
+		//System.out.println(num+"    lhcMyFavorite매핑에서 num");
+		LhcPcVO pc = lhcPcDAO.getPc(Integer.parseInt(lhc_num));
+		String likeNum = lhcMemberDAO.getLikeNum(id);
+		String[] likeNumber = null;
+		likeNumber = likeNum.split(",");
+		boolean check = false;
+		for(int i = 0; i < likeNumber.length; i++) {
+			if(likeNumber[i].equals(lhc_num)) {
+				check = true;
+				break;
+			}
+		}
+		
+		model.addAttribute("check", check);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("pc", pc);
+		model.addAttribute("state", state);
+		
+		return "lhcPc/lhcPcContent";
+	} 
+	
+	// #3. 찜 보여주는
+	@SuppressWarnings("unchecked")
+	@RequestMapping("lhcMyFavoriteListForm.lhc")
+	public String lhcMyFavoriteForm(HttpSession session, Model model)throws Exception {
+		
+		String lhc_id = (String)session.getAttribute("memId");
+		
+		LhcMemberVO vo = new LhcMemberVO();
+		String fav = lhcMemberDAO.selectFav(lhc_id);
+		
+		List<LhcPcVO> favList = new ArrayList<LhcPcVO>();
+
+		String [] fav_list = fav.split(",");
+		//System.out.println(fav_list+"  fav_list");
+		//System.out.println(fav_list.length-1+"fav_list.length");
+		//int count = fav_list.length-1;
+		
+		for(int i=1; i<fav_list.length;i++) {
+			String favOne = fav_list[i];
+			//System.out.println(favOne+" -----------favOne");
+			favList.addAll((List<LhcPcVO>)lhcPcDAO.getPc1(favOne));			
+		}
+		
+		//System.out.println(favList+"     favList");
+		model.addAttribute("favList", favList);
+		
+		return "lhcMember/lhcMyFavoriteListForm";
+	}
+	
+	//각 pc방 찜한 회원 찾는 페이지
+	@SuppressWarnings("unchecked")
+	@RequestMapping("lhcCustomerFavList.lhc")
+	public String lhcCustomerFavList(HttpSession session, Model model)throws Exception{
+			
+		// #1. 각 업주의 pc방 고유 번호를 받음.
+		String id = (String)session.getAttribute("memId");
+		LhcPcVO pc = lhcPcDAO.getPc(id);
+		int num = pc.getLhc_num(); // pc방 고유 번호
+
+		// #2. 모든 회원들의 리스트를 뽑은 후에, 각 회원의 lhc_favorite 컬럼을 가져오고, 그 컬럼의 pc방 고유번호를 split해서 favOne에 담아		
+		String pageNum = null;
+		String sep="c";
+		if(pageNum == null) {pageNum ="1";}
+		int pageSize = 10;
+		int currentPage = Integer.parseInt(pageNum);
+		int startRow = (currentPage - 1) * pageSize + 1;
+		int endRow = currentPage * pageSize;
+		List memberList = null;
+		LhcMemberVO vo = new LhcMemberVO();
+		int count = 0;
+		int number = 0;
+		count = lhcMemberDAO.getCountMember(sep);
+		number = count - (currentPage-1) * pageSize;
+		
+		//찜 회원 리스트 뿌리기
+		List<LhcMemberVO> member = new ArrayList<LhcMemberVO>();
+		//System.out.println(member+"    member 리스트");
+		if(count > 0) {
+			memberList = lhcMemberDAO.selectAll(startRow, endRow, sep);
+			for(int i = 0; i < memberList.size(); i++) {
+				vo = (LhcMemberVO)memberList.get(i);
+				// 회원의 id로 lhc_favorite 컬럼을 뽑아서
+				String lhc_id = vo.getLhc_id();
+				//System.out.println(lhc_id + "   lhc_id ");
+				String fav = (String)lhcMemberDAO.selectFav(lhc_id);
+				//System.out.println(fav + "   fav");
+				
+				String [] fav_list = fav.split(","); 
+				
+				for(int j=1; j<fav_list.length; j++) {
+					int favOne = Integer.parseInt(fav_list[j]);
+					//System.out.println(favOne+"  favOne");
+					
+					// # 3. 업주의 pc방 고유 번호와 하나씩 비교해서
+					// 	    pc방 고유번호와 같은 번호만 회원정보를 빼와서 리스트에 넣어줌  
+					if(num == favOne) {
+						//System.out.println("num은 ~~~~~ "+num);
+						//System.out.println("if문 안에서 lhc_id는   "+lhc_id);
+						member.addAll((List<LhcMemberVO>)lhcMemberDAO.selectMember1(lhc_id));
+						model.addAttribute("member", member);
+					}					
+				}			
+			 }
+		}else{
+				member = Collections.EMPTY_LIST;
+		}
+		
+		return "lhcVendor/lhcCustomerFavList";
+	}
 	
 	// 좋아요
-	@RequestMapping("lhcLikeCheck.lhc")
-	@ResponseBody
-	public void lhcLike(HttpSession session,HttpServletResponse response, int num)throws Exception{
-		String id = (String)session.getAttribute("memId");
-		String likeNum = null;
-		String number = ","+ num;
-		likeNum = lhcMemberDAO.likeCheck(id);
-		System.out.println(likeNum + "좋아요 누른 pc번호");
-		lhcMemberDAO.updateLikeNum(id, number);
-		
-		String aa=Integer.toString(lhcPcDAO.getLikeCount(num));
-		response.getWriter().print(aa.toString());
-	}
-
-	// 아이디 중복 검사 메서드 (ajax 이용)
-//	@RequestMapping("lhcAjaxIdAvail.lhc")
-//	@ResponseBody // 문자열로 리턴해주고 싶을때 쓰는 어노테이션
-//	// public String ajaxIdAvail(String id) throws Exception{
-//	public ResponseEntity<String> ajaxIdAvail(String id) throws Exception{
-//		String result = "";
-//		int check = LhcMemberDAO.idAvailCheck(id);
-//		if(check == 1) {
-//			result = "Unavailable";
-//		}else if(check == 0) {
-//			result = "Available";
-//		}
-//		// 한글을 넘겨주기 위해 HttpHeaders 객체를 만들어주고
-//		// utf-8을 넣어줘야 함 (헤더 정보 추가)
-//		HttpHeaders responseHeaders = new HttpHeaders();
-//		responseHeaders.add("Content-Type", "text/html;charset=utf-8");
-//		
-//		// 마지막 statue는 상태를 말함. 대부분 HttpStatus.CREATED 어떠한 생성 작업을 요청받았으며 생성작업을 성공하였다.
-//		// 또는 HttpStatus.OK 를 넣어준다
-//		
-//										   // body결과, 헤더정보, 상태정보(CREATED:201)
-//		return new ResponseEntity<String>(result, responseHeaders, HttpStatus.CREATED);
-//	}
-
+		@RequestMapping("lhcLikeCheck.lhc")
+		@ResponseBody
+		public String lhcLike(HttpSession session,HttpServletResponse response, int num)throws Exception{
+			JSONObject json=new JSONObject();
+			String id = (String)session.getAttribute("memId");
+			String likeNum = null;
+			String [] likeNumber = null;
+			String newLike = null;
+			likeNum = lhcMemberDAO.getLikeNum(id);
+			ArrayList<String> list = new ArrayList<String>();
+			list.add(0, Integer.toString(num));
+			if(likeNum == null) { // 없으면 추가 해라
+				newLike = String.join(",", list);
+				lhcMemberDAO.updateLikeNum(id, newLike);
+				lhcPcDAO.updateLikeCount(num);
+				json.put("check", true);
+			}else {
+				likeNumber = likeNum.split(",");
+				lhcPcDAO.updateLikeCount(num);
+				json.put("check", true);
+				for(int i = 0; i < likeNumber.length; i++) {
+					if(!likeNumber[i].equals(Integer.toString(num))) {
+						list.add(likeNumber[i]);
+					}else {
+						json.put("check", false);
+						list.remove(likeNumber[i]);
+						lhcPcDAO.downLikeCount(num);
+					}
+				}
+				newLike = String.join(",", list);
+				lhcMemberDAO.updateLikeNum(id, newLike);
+			}
+			String volist=lhcMemberDAO.getLikeNum(id);
+			System.out.println(list);
+			String likeCountdo = Integer.toString(lhcPcDAO.getLikeCount(num));
+			json.put("likeCountdo", likeCountdo);
+			
+//			response.getWriter().print(likeCountdo);
+			return json.toString();
+		}
 }
+

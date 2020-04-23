@@ -46,10 +46,48 @@ public class LhcPcDAOImpl implements LhcPcDAO{
 		
 		return list;
 	}
+	@Override
+	public List getPcs1(int start, int end, String lhc_id) throws Exception {
+		
+		HashMap map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("lhc_id",lhc_id);
+		
+		List list = sqlSession.selectList("lhcPc.selectAllVendor", map);
+		//System.out.println(list+"daoimpl에서 list");
+		return list;
+	}
 
+	@Override
+	public int getPcCount() throws Exception {
+		int count = sqlSession.selectOne("lhcPc.countAll");
+		return count;
+	}
+	@Override
+	public int getVendorPcCount(String lhc_id) throws Exception {
+		int count1 = sqlSession.selectOne("lhcPc.countAllVendor", lhc_id);
+		//System.out.println(count1+"  daoimpl에서 count1");
+		return count1;
+	}
+	
 	@Override
 	public LhcPcVO getPc(int num) throws Exception {
 		LhcPcVO pc = sqlSession.selectOne("lhcPc.selectOnePc", num);
+		return pc;
+	}
+	@Override
+	public List getPc1(String num) throws Exception {
+		List list =null;
+		list = sqlSession.selectList("lhcPc.selectOnePc1", num);
+		return list;
+	}
+	
+	@Override
+	public LhcPcVO getPc(String lhc_id) throws Exception {
+		//System.out.println(lhc_id+"   daoimpl에서 lhc_id");
+		LhcPcVO pc = sqlSession.selectOne("lhcPc.selectOnePc2", lhc_id);
+		//System.out.println(pc+"   daoimpl에서 pc");
 		return pc;
 	}
 
@@ -68,7 +106,7 @@ public class LhcPcDAOImpl implements LhcPcDAO{
 	public void statePc(int num) throws Exception {
 		sqlSession.update("lhcPc.statePc", num);
 	}
-
+	
 	// 업주 회원 정보 삭제시 pc정보 같이 삭제
 	@Override
 	public void deletePc(String id) throws Exception {
@@ -93,7 +131,6 @@ public class LhcPcDAOImpl implements LhcPcDAO{
 		return count;
 	}
 	
-	@Override
 	public List getSearchPcs(int start, int end, String sel, String search, String state) throws Exception {
 		
 		HashMap map = new HashMap();
@@ -105,9 +142,10 @@ public class LhcPcDAOImpl implements LhcPcDAO{
 		map.put("state", state);
 		
 		List pcList=sqlSession.selectList("lhcPc.getSearchPcs", map);
-		
 		return pcList;
 	}
+
+	
 
 	@Override
 	public int selectOnePcChar(String id) throws Exception {
@@ -121,9 +159,47 @@ public class LhcPcDAOImpl implements LhcPcDAO{
 		return count;
 	}
 
+	@Override
+	public void updateLikeCount(int num) throws Exception {
+		sqlSession.update("lhcPc.updateLikeCount", num);
+	}
+	
+	@Override
+	public void downLikeCount(int num) throws Exception {
+		sqlSession.update("lhcPc.downLikeCount", num);
+	}
 
+	@Override
+	public List getFavPcs(int startRow, int endRow, String state) throws Exception {
+		List pcFavList = null;
+		HashMap map = new HashMap();
+		map.put("start", startRow);
+		map.put("end", endRow);
+		map.put("state", state);
+		pcFavList = sqlSession.selectList("lhcPc.getFavPcs", map);
+		return pcFavList;
+	}
+	
+	@Override
+	public List getCharPcs(int startRow, int endRow, String state) throws Exception {
+		List pcFavList = null;
+		HashMap map = new HashMap();
+		map.put("start", startRow);
+		map.put("end", endRow);
+		map.put("state", state);
+		pcFavList = sqlSession.selectList("lhcPc.getCharPcs", map);
+		return pcFavList;
+	}
+	
+	// 매출로 정렬해서 메서드 추가
+	@Override	
+	public List getPcsMoneyList(int start, int end) throws Exception {
+		HashMap map = new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlSession.selectList("lhcPc.selectAllbyMoney", map);
+		
+		return list;
+	}
 
-	
-	
-	
 }

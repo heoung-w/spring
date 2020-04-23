@@ -3,20 +3,14 @@ package lhc.model.vo;
 import java.sql.Timestamp;
 
 public class LhcMyCharVO {
+
 	private int lhc_count;
 	private int lhc_num;
 	private String lhc_name;
+	private int lhc_seats;
 	private String lhc_id;
-	private String lhc_seats;
 	private int lhc_price;
 	private Timestamp lhc_reg;
-	
-	public Timestamp getLhc_end() {
-		return lhc_end;
-	}
-	public void setLhc_end(Timestamp lhc_end) {
-		this.lhc_end = lhc_end;
-	}
 	private Timestamp lhc_end;
 	
 	public int getLhc_count() {
@@ -31,23 +25,23 @@ public class LhcMyCharVO {
 	public void setLhc_num(int lhc_num) {
 		this.lhc_num = lhc_num;
 	}
-	public String getLhc_id() {
-		return lhc_id;
-	}
-	public void setLhc_id(String lhc_id) {
-		this.lhc_id = lhc_id;
-	}
 	public String getLhc_name() {
 		return lhc_name;
 	}
 	public void setLhc_name(String lhc_name) {
 		this.lhc_name = lhc_name;
 	}
-	public String getLhc_seats() {
+	public int getLhc_seats() {
 		return lhc_seats;
 	}
-	public void setLhc_seats(String lhc_seats) {
+	public void setLhc_seats(int lhc_seats) {
 		this.lhc_seats = lhc_seats;
+	}
+	public String getLhc_id() {
+		return lhc_id;
+	}
+	public void setLhc_id(String lhc_id) {
+		this.lhc_id = lhc_id;
 	}
 	public int getLhc_price() {
 		return lhc_price;
@@ -61,6 +55,6 @@ public class LhcMyCharVO {
 	public void setLhc_reg(Timestamp lhc_reg) {
 		this.lhc_reg = lhc_reg;
 	}
-	
-	
+	public void setLhc_end(Timestamp lhc_end) {this.lhc_end = lhc_end;}
+	public Timestamp getLhc_end() {return lhc_end;}
 }

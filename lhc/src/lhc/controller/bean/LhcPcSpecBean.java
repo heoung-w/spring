@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import lhc.model.dao.LhcPcDAO;
+import lhc.model.dao.LhcPcDAOImpl;
 import lhc.model.dao.LhcPcSpecDAOImpl;
 import lhc.model.vo.LhcPcSpecVO;
+import lhc.model.vo.LhcPcVO;
 
 
 @Controller
@@ -23,11 +26,15 @@ public class LhcPcSpecBean {
 
 	@Autowired
 	private LhcPcSpecDAOImpl lhcPcSpecDAO=null;
+	@Autowired
+	private LhcPcDAOImpl lhcPcDAO=null;
 	
 	//사양 등록
 	@RequestMapping("lhcPcSpecRegister.lhc")
-	public String lhcPcSpecRegister() {
-
+	public String lhcPcSpecRegister(HttpSession session, Model model) throws Exception{
+		String id = (String)session.getAttribute("memId");
+		LhcPcVO vo = lhcPcDAO.getPc(id);
+		model.addAttribute("vo", vo);
 		return "lhcPcSpec/lhcPcSpecRegister";
 	}
 	
@@ -35,7 +42,7 @@ public class LhcPcSpecBean {
 	@RequestMapping("lhcPcSpecRegisterPro.lhc")
 	public String lhcPcSpecRegisterPro(LhcPcSpecVO vo) throws Exception{
 		
-		System.out.println(vo.getLhc_num()+"vo.getLhc_num()");
+		//System.out.println(vo.getLhc_num()+"vo.getLhc_num()");
 		
 		lhcPcSpecDAO.insertPcSpec(vo);
 		
@@ -47,7 +54,7 @@ public class LhcPcSpecBean {
 	public String lhcPcSpecContent(LhcPcSpecVO vo, Model model) throws Exception {
 		
 		String lhc_name = vo.getLhc_name();
-		System.out.println(lhc_name+"lhc_name은 pc방 이름인데...");
+		//System.out.println(lhc_name+"lhc_name은 pc방 이름인데...");
 		LhcPcSpecVO spec = lhcPcSpecDAO.getPcSpec(lhc_name);
 		model.addAttribute("spec", spec);
 		

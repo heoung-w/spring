@@ -5,15 +5,60 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+<style>
+	body {
+	  padding-top: 50px;
+	}
+	.starter-template {
+	  padding: 40px 15px;
+	  text-align: center;
+	}
+table.type09 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+table.type09 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.type09 tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.type09 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
-<body>
+<div class = "container">
+<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include>
+</div>
+<body style="background-color: aliceblue">
+<div class = "container">
+	<h1 align="center">예약 내역</h1>
 	<br />
-	<h1 align="center">업주</h1>	
 	<%--예약 정보글 없을때 --%>
 	<c:if test="${count == 0}">
-	<table>
+	<table class="type09">
 		<tr>
 			<td>예약 정보가 없습니다.</td>
 		</tr>
@@ -22,21 +67,23 @@
 	
 	<%--예약 정보 있을때 --%>
 	<c:if test="${count > 0}">
-	<table>
-		<tr>
-			<td>No.</td>
-			<td>예약회원</td>
-			<td>좌석</td>
-			<td>가격</td>
-			<td align="center">예약시간</td>
-			<td align="center">종료시간</td>
-		</tr>
+	<table class="type09">
+		<thead>
+			<tr scope="cols">
+				<th>No.</th>
+				<th>예약회원</th>
+				<th>좌석</th>
+				<th>가격</th>
+				<th align="center">예약시간</th>
+				<th align="center">종료시간</th>
+			</tr>
+		</thead>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="charList" items="${charList}">
 		<tr>
-			<td>${number}
+			<th scope="row">${number}
 				<c:set var="number" value="${number-1}" />
-			</td>
+			</th>
 			<td>${charList.lhc_id}</td>
 			<td>${charList.lhc_seats}</td>
 			<td>${charList.lhc_price}원</td>
@@ -47,8 +94,6 @@
 	</table>
 	</c:if>
 	<br />
-	
-	
 	<%--목록의 페이지 번호 뷰어 설정 --%>
 	<div align="center">
 	<c:if test="${count > 0}">
@@ -56,6 +101,7 @@
 		<c:set var="pageCount" value="${res + (count % pageSize == 0 ? 0 : 1)}" />
 		<c:set var="pageBlock" value="10" />
 		<fmt:parseNumber var="result" value="${currentPage/pageBlock}" integerOnly="true" />
+		
 		<fmt:parseNumber var="startPage" value="${result * pageBlock + 1}" />
 		<fmt:parseNumber var="endPage" value="${startPage + pageBlock - 1}" />
 		<c:if test="${endPage > pageCount}" >
@@ -74,5 +120,11 @@
 		</c:if>
 	</c:if>
 	</div>
+	<table align="center">
+		<tr >
+			<td colspan="6"><button onclick = "history.go(-1)" style="color: black;" class="btn btn-default">뒤로</button></td>
+		</tr>
+	</table>
+</div>
 </body>
 </html>

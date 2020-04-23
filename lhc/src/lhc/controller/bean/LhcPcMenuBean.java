@@ -11,8 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import lhc.model.dao.LhcPcDAOImpl;
 import lhc.model.dao.LhcPcMenuDAOImpl;
 import lhc.model.vo.LhcPcMenuVO;
+import lhc.model.vo.LhcPcVO;
 
 @Controller
 @RequestMapping("/lhcPcMenu/")
@@ -21,16 +24,16 @@ public class LhcPcMenuBean {
 
 	@Autowired
 	private LhcPcMenuDAOImpl lhcPcMenuDAO=null;
-	
+	@Autowired
+	private LhcPcDAOImpl lhcPcDAO=null;
 	//메뉴 등록
 	@RequestMapping("lhcPcMenuRegister.lhc")
-	public String lhcPcMenuRegister() {
+	public String lhcPcMenuRegister(HttpSession session, Model model)throws Exception {
 		
-		/*
-		 * LhcPcVO vo = new LhcPcVO(); int lhc_num = vo.getLhc_num();
-		 * model.addAttribute("lhc_num", lhc_num);
-		 */
-		 	
+		String id = (String)session.getAttribute("memId");
+		LhcPcVO vo = lhcPcDAO.getPc(id);
+		model.addAttribute("vo", vo);
+		
 		return "lhcPcMenu/lhcPcMenuRegister";
 	}
 	
@@ -55,7 +58,7 @@ public class LhcPcMenuBean {
 		
 		LhcPcMenuVO vo=new LhcPcMenuVO();
 		
-		System.out.println(vo.getLhc_menum()+"@@@vo.setLhc_menum");
+		//System.out.println(vo.getLhc_menum()+"@@@vo.setLhc_menum");
 		
 		vo.setLhc_num(Integer.parseInt(request.getParameter("lhc_num")));
 		vo.setLhc_img(newName);		
@@ -64,7 +67,7 @@ public class LhcPcMenuBean {
 		
 		lhcPcMenuDAO.insertPcMenu(vo);
 		
-		return "lhcPc/lhcPcContent"; 
+		return "lhcPc/lhcPcListAll"; 
 	}
 	
 	//메뉴 content

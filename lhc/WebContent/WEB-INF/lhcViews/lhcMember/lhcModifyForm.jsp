@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 	function check(){
@@ -54,6 +53,7 @@
 </script>
 
 </head>
+<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"/>
 <c:if test="${sessionScope.memId == null}">
 	<script>
 		alert("로그인 후 회원수정 해주세요.");

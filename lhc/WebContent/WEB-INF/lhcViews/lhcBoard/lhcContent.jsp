@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지게시글보기</title>
+	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script>
 		$(document).ready(function(){

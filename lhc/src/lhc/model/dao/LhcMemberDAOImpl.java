@@ -57,12 +57,22 @@ public class LhcMemberDAOImpl implements LhcMemberDAO{
 	}
 
 	@Override
-	public LhcMemberVO selectMember(String id) throws Exception {
+	public LhcMemberVO selectMember(String lhc_id) throws Exception {
 		
 		
-		LhcMemberVO vo = sqlSession.selectOne("lhcMember.selectMember", id);
+		LhcMemberVO vo = sqlSession.selectOne("lhcMember.selectMember", lhc_id);
 		
 		return vo;
+	}
+	
+	//각 pc방 찜한 회원들 리스트 담아서, 찜회원 목록에 보여주기
+	@Override
+	public List selectMember1(String lhc_id) throws Exception {
+		 
+		List list = null;
+		list = sqlSession.selectList("lhcMember.selectMember", lhc_id);
+		
+		return list;
 	}
 
 	@Override
@@ -100,32 +110,57 @@ public class LhcMemberDAOImpl implements LhcMemberDAO{
 	@Override
 	public int updatePoint(String lhc_id, int lhc_money) throws Exception {
 		
+		//System.out.println(lhc_money+"daoimpl에서 lhc_money");
+		
 		HashMap map = new HashMap();
 		map.put("lhc_id", lhc_id);
 		map.put("lhc_money", lhc_money);
+		
 		sqlSession.update("lhcMember.updatePoint", map);
+		
+		//System.out.println(map+"map이다");
+		
 		int result = 1;
 		
 		return result;
 	}
 
 	@Override
-	public String likeCheck(String id) throws Exception {
+	public String selectFav(String lhc_id) throws Exception {
+		
+		String fav = (String)sqlSession.selectOne("lhcMember.selectFav", lhc_id);
+		//System.out.println(fav+"memberdaoimpl에서 fav");
+		return fav;
+	}
+
+	@Override
+	public void updateFav(String num, String lhc_id) throws Exception {
+		
+		HashMap map = new HashMap();
+		map.put("num", num);
+		map.put("lhc_id", lhc_id);
+		
+		sqlSession.update("lhcMember.updateFav", map);
+		
+	}
+
+
+	@Override
+	public String getLikeNum(String id) throws Exception {
 		String likeNum = null;
 		likeNum = sqlSession.selectOne("lhcMember.selectLikeNum", id);
 	
 		return likeNum;
 	}
 
+	
 	@Override
-	public void updateLikeNum(String id, String number) throws Exception {
+	public void updateLikeNum(String id, String newLike) throws Exception {
+		System.out.println(newLike+"뉴라이크");
 		HashMap map = new HashMap();
 		map.put("id", id);
-		map.put("number", number);
+		map.put("newLike", newLike);
 		sqlSession.update("lhcMember.updateLikeNum", map);
 		
 	}
-
-	
-	
 }

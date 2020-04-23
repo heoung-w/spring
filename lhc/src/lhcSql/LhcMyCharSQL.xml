@@ -1,52 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="lhcMyChar">
-<insert id="insertMyChar" parameterType="lhcMyCharVO">
-	insert into lhcmychar values(lhcmychar_seq.nextVal,#{lhc_num},#{lhc_id},#{lhc_name},#{lhc_seats},#{lhc_price},sysdate)
-</insert>
-<select id="selectMyCount" parameterType="String" resultType= "int">
-	select count(*) from lhcmychar where lhc_id = #{value}
+
+<select id="selectSeats" parameterType="int" resultType="hashmap">
+	select lhc_num from lhcmychar where lhc_num=#{lhc_num}
 </select>
 
-<select id="selectAllCount" resultType="int">
+<update id="updateReservation" parameterType="hashmap">
+	update lhcpcinfo set lhc_reserved=#{checkboxes}, lhc_rescount=#{lhc_rescount} where lhc_num=#{lhc_num}
+</update>
+
+<insert id="insertMychar" parameterType="hashmap" >
+	insert into lhcmychar(lhc_count, lhc_num, lhc_name, lhc_id, lhc_seats, lhc_price, lhc_reg, lhc_end)values(lhcmychar_seq.nextVal, #{lhc_num}, #{lhc_name}, #{id}, #{checkboxes}, 1000, sysdate, sysdate)
+</insert>
+
+<select id="countReserved" parameterType="int" resultType="int">
+	select count(lhc_reserved) from lhcpcinfo where lhc_num=#{lhc_num}
+</select>
+
+<select id="getSeats" parameterType="hashmap" resultType="LhcMyCharVO">
+	select * from lhcmychar where lhc_seats=#{lhc_seats} and lhc_num=#{lhc_num} and lhc_reg=lhc_end
+</select>
+
+<select id="getAllCharCount" resultType="int">
 	select count(*) from lhcmychar
 </select>
 
-<select id="selectVendorCount" parameterType="int" resultType="int">
-	select count(*) from lhcmychar where lhc_num = #{value}
-</select>
-
-<select id="selectMyChar" parameterType="hashmap" resultType = "lhcMyCharVO">
-	<![CDATA[
-		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end rownum r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
-		from lhcmychar where lhc_id = #{id} order by lhc_count desc)order by lhc_count desc)
-		where r >= #{start} and r <=#{end}
-	]]>
-</select>
-
-<select id="selectAllChar" parameterType="hashmap" resultType = "lhcMyCharVO" >
-	<![CDATA[
-		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end, rownum r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
-		from lhcmychar order by lhc_count desc)order by lhc_count desc)
-		where r >= #{start} and r <=#{end}
-	]]>
-</select>
-
-<select id="selectVendorChar" parameterType="hashmap" resultType ="lhcMyCharVO">
-	<![CDATA[
-		select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end,r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end, rownum r
-		from(select lhc_count,lhc_num,lhc_name,lhc_id,lhc_seats,lhc_price,lhc_reg,lhc_end
-		from lhcmychar where lhc_num = #{num} order by lhc_count desc)order by lhc_count desc)
-		where r >= #{start} and r <=#{end}
-	]]>
-</select>
-
+<update parameterType="int" id="updateTotalRes"> 
+	update lhcpcinfo set lhc_totalres=(select count(lhc_seats) from lhcmychar where lhc_num=#{lhc_num}) where lhc_num=#{lhc_num} 
+</update>
+ 
+<!-- 2020.04.20 추가 SQL -->
+<update parameterType="int" id="updateTotalPrice"> 
+	update lhcpcinfo set lhc_totalprice=(select sum(lhc_price) from lhcmychar where lhc_num=#{lhc_num}) where lhc_num=#{lhc_num} 
+</update>
 
 </mapper>

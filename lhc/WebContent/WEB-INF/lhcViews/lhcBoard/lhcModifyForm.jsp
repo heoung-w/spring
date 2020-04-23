@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지게시글 수정</title>
+	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css" />
 	<script>
 	
 	</script>

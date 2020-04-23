@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTf-8">
 	<title>뉴스공지</title>
+	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
 	<!-- 관리자 로그인된 경우만 접근 가능하게  -->
 </head>
 <body>

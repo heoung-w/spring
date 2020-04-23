@@ -15,7 +15,7 @@
 		select lhc_pw from lhcmember where lhc_id=#{value}
 	</select>
 
-	<select id="selectMember" parameterType="lhcMemberVO" resultType="lhcMemberVO">
+	<select id="selectMember" parameterType="String" resultType="lhcMemberVO">
 		select * from lhcmember where lhc_id=#{lhc_id}
 	</select>
 
@@ -40,12 +40,47 @@
 		select count(*) from lhcmember where lhc_sep = #{value}
 	</select>
 	
-	<update parameterType="hashmap" id="updatePoint">
-		update lhcMember set lhc_money = lhc_money + #{lhc_money} where lhc_id = #{lhc_id}
+	<update id="updatePoint" parameterType="hashmap"> 
+		update lhcmember set lhc_money = lhc_money + #{lhc_money} where lhc_id =#{lhc_id} 
 	</update>
 	
-	<select id="selectLikeNum" parameterType="String" resultType="String">
-		select lhc_like from lhcmember where lhc_id = #{value}
+	<select id="selectFav" parameterType="String" resultType="String">
+		select lhc_favorite from lhcmember where lhc_id=#{lhc_id}
 	</select>
+	
+	<!-- "update book_member set bk_cart=? where bk_id=?"; -->
+	<update id="updateFav" parameterType="hashmap">
+		update lhcmember set lhc_favorite = #{num} where lhc_id = #{lhc_id}
+	</update>
+	
+	<select parameterType="String" id="selectLikeNum" resultType="String"> 
+		select lhc_like from lhcmember where lhc_id = #{value} 
+	</select> 
+	<update parameterType="hashmap" id="updateLikeNum"> 
+		update lhcmember set lhc_like = #{newLike} where lhc_id = #{id} 
+	</update>
+		
+	<select id="getReservedCount" parameterType="String" resultType="int"> 
+		select count(*) from lhcmychar where lhc_id=#{id} 
+	</select> 
+	
+	<select id="getReservedCount1" parameterType="String" resultType="int"> 
+		select count(*) from lhcmychar where lhc_name=#{lhc_name} 
+	</select> 
+	
+	<select id="getReservedList" parameterType="hashmap" resultType="LhcMyCharVO"> 
+		select * from lhcmychar where lhc_id=#{id} 
+	</select> 
+	
+	<select id="getReservedList1" parameterType="hashmap" resultType="LhcMyCharVO"> 
+		select * from lhcmychar where lhc_name=#{lhc_name} 
+	</select> 
 
+	<select id="getReservedAllList" resultType="LhcMyCharVO"> 
+		select * from lhcmychar
+	</select> 
+	
+	<update id="updateLhc_end" parameterType="hashmap"> 
+		update lhcmychar set lhc_price=#{netRev}, lhc_end=sysdate where lhc_seats=#{lhc_seats} and lhc_num=#{lhc_num} 
+	</update>
 </mapper>

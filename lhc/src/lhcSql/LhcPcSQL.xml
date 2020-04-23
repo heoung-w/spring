@@ -5,29 +5,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 <mapper namespace="lhcPc">
 
-	<select id="resCountAll" resultType="int" parameterType="String">
+	<select id="countAll" resultType="int" > 
+		select count(*) from lhcpcinfo 
+	</select>
+	
+	<select id="countAllVendor" parameterType="String" resultType="int" > 
+		select count(*) from lhcpcinfo where lhc_vendor=#{lhc_id}
+	</select>
+
+	<select id="resCountAll" resultType="int">
 		select count(*) from lhcpcinfo where lhc_state = #{state}
 	</select>
 	
-	<select id="beforeCountAll" resultType="int" parameterType="String">
+	<select id="beforeCountAll" resultType="int">
 		select count(*) from lhcpcinfo	where lhc_state = #{state}
 	</select>
-	<select id="getLikeCount"  parameterType="int" resultType="int">
-		select lhc_like from lhcpcinfo where lhc_num=#{value}
-	</select>
 
-	<select id="selectResAll" parameterType="hashmap" resultType="lhcPcVO">
+	<select parameterType="hashmap" resultType="lhcPcVO" id="selectResAll"> 
+		<![CDATA[ 
+			select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state, r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state, rownum r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state 
+			from lhcpcinfo where lhc_state = #{state} order by lhc_num desc) order by lhc_num desc) where r >= #{start} and r <= #{end} 
+		]]>
+ 	</select>
+	
+	<select id="selectAllVendor" parameterType="hashmap" resultType="lhcPcVO">
 		<![CDATA[
-		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state, r
-		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state, rownum r
-		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state
-		from lhcpcinfo where lhc_state = #{state} order by lhc_num desc) order by lhc_num desc)
+		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state,lhc_like, r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like, rownum r
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like
+		from lhcpcinfo where lhc_vendor = #{lhc_id} order by lhc_num desc) order by lhc_num desc)
 		where r >= #{start} and r <= #{end}
 		]]>
 	</select>
 
 	<insert id="insertPc" parameterType="lhcPcVO">
-		insert into lhcpcinfo(lhc_num, lhc_name,lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor,lhc_seats,lhc_reg,lhc_lat, lhc_lng,lhc_state,lhc_like)
+		insert into lhcpcinfo(lhc_num, lhc_name,lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor,lhc_seats,lhc_reg,lhc_lat, lhc_lng,lhc_state,lhc_like) 
 		values(lhcpcinfo_seq.nextVal,#{lhc_name},#{lhc_img},#{lhc_phone},#{lhc_addr},#{lhc_info},#{lhc_vendor},#{lhc_seats},sysdate,#{lhc_lat},#{lhc_lng},#{lhc_state},0)
 	</insert>
 
@@ -37,9 +51,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   	<select id="getSearchPcs" parameterType="hashmap" resultType="lhcPcVO">
   		<![CDATA[
-	  		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,r
-	  		from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,rownum r
-			from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state
+	  		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr,lhc_info, lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,r
+	  		from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,rownum r
+			from(select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor,lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state
 			from lhcpcinfo where ${sel} like '%'||#{search}||'%' and lhc_state = 'a' order by lhc_num desc)order by lhc_num desc)
 			where r >= #{start} and r <= #{end}
 		]]>
@@ -49,25 +63,65 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		update lhcpcinfo set lhc_state = 'a' where lhc_num = #{num}
   	</update>
   	
-  	 <select id="selectOnePc" parameterType="int" resultType="lhcPcVO" > 
+  	<select id="selectOnePc" parameterType="int" resultType="lhcPcVO"> 
   		select * from lhcpcinfo where lhc_num=#{num} 
   	</select>
   	
-  	<select id="selectOnePcChar" parameterType="String" resultType="int" > 
+  	<select id="selectOnePc1" parameterType="String" resultType="lhcPcVO"> 
+  		select * from lhcpcinfo where lhc_num=#{num} 
+  	</select>
+  	
+  	<select id="selectOnePc2" parameterType="String" resultType="lhcPcVO">
+  		select * from lhcpcinfo where lhc_vendor=#{lhc_id} and lhc_state='b'
+ 	</select>
+  	
+  	<select parameterType="String" resultType="int" id="selectOnePcChar"> 
   		select lhc_num from lhcpcinfo where lhc_vendor=#{id} 
+  	</select> 
+  	
+  	<delete parameterType="String" id="deletePc"> 
+  		delete from lhcpcinfo where lhc_vendor = #{id} 
+  	</delete> 
+  	
+  	<delete parameterType="int" id="pcDelete"> 
+  		delete from lhcpcinfo where lhc_num = #{num} 
+  	</delete> 
+  	  	
+  	<select parameterType="int" resultType="int" id="getLikeCount">
+  		 select lhc_like from lhcpcinfo where lhc_num=#{value} 
   	</select>
   	
-  	<delete id="deletePc" parameterType="String">
-  		delete from lhcpcinfo where lhc_vendor = #{id}
-  	</delete>
-  	
-  	<delete id="pcDelete" parameterType="int">
-  		delete from lhcpcinfo where lhc_num = #{num}
-  	</delete>
-<!--   	
-  	<select id="getSeats" parameterType="LhcPcVO" resultType="LhcPcVO">
-  		select lhc_seats from lhcpcinfo where lhc_addr=#{lhc_addr}
-  	</select>
-  	 -->
-  	
+  	<update parameterType="int" id="updateLikeCount"> 
+  		update lhcpcinfo set lhc_like = lhc_like + 1 where lhc_num = #{value} 
+  	</update> 
+  	<update parameterType="int" id="downLikeCount"> 
+  		update lhcpcinfo set lhc_like = lhc_like - 2 where lhc_num = #{value} 
+  	</update>
+ 
+ 	<select parameterType="hashmap" resultType="lhcPcVO" id="getFavPcs"> 
+		<![CDATA[ 
+			select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state,lhc_like, r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like, rownum r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like 
+			from lhcpcinfo where lhc_state = #{state} order by lhc_like desc) order by lhc_like desc) where r >= #{start} and r <= #{end} 
+		]]>
+	</select>
+	
+	<select parameterType="hashmap" resultType="lhcPcVO" id="getCharPcs">
+		<![CDATA[
+			select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount, lhc_state,lhc_like,lhc_totalres,lhc_totalprice, r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like,lhc_totalres,lhc_totalprice, rownum r 
+			from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_state,lhc_like,lhc_totalres,lhc_totalprice 
+			from lhcpcinfo where lhc_state = #{state} order by lhc_totalres desc) order by lhc_totalres desc) where r >= #{start} and r <= #{end} 
+		]]>
+</select>
+
+<select resultType="LhcPcVO" id="selectAllbyMoney" parameterType="hashmap"> 
+	<![CDATA[ 
+		select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_totalprice, r 
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_totalprice, rownum r 
+		from (select lhc_num, lhc_name, lhc_img, lhc_phone,lhc_addr, lhc_info,lhc_vendor, lhc_seats, lhc_reg,lhc_lat, lhc_lng,lhc_rescount,lhc_totalprice 
+		from lhcpcinfo order by lhc_totalprice desc) order by lhc_totalprice desc) where r >= #{start} and r <= #{end} 
+	]]>
+ </select>
 </mapper>

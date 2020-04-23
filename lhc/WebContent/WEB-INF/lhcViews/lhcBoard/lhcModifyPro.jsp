@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<c:redirect url="/lhcBoard/lhcList.lhc" />

@@ -42,6 +42,11 @@ public class LhcBoardBean {
 		
 		number = count - (currentPage-1) * pageSize;
 		
+		// 블랙박스 테스트
+		//System.out.println("LhcBoardBean.java에서 count는? " + count);
+		//System.out.println("LhcBoardBean.java에서 number는? " + number);
+		//System.out.println("LhcBoardBean.java에서 currentPage는? " + currentPage);
+		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("startRow", startRow);
 		model.addAttribute("endRow", endRow);
@@ -92,7 +97,7 @@ public class LhcBoardBean {
 	
 	@RequestMapping("lhcDeletePro.lhc")
 	public String lhcDeletePro(int lhc_num, String pageNum, Model model) throws Exception {
-		System.out.println("lhcDeletePro.lhc에서 int인 lhc_num은 뭐냐? " + lhc_num);
+		//System.out.println("lhcDeletePro.lhc에서 int인 lhc_num은 뭐냐? " + lhc_num);
 		lhcBoardDAO.deleteArticle(lhc_num);
 		
 		return "lhcBoard/lhcDeletePro";

@@ -30,7 +30,6 @@
 			/WEB-INF/lhcController/lhcMember-controller.xml
 			/WEB-INF/lhcController/lhcBoard-controller.xml			
 			/WEB-INF/lhcController/lhcPc-controller.xml			
-			/WEB-INF/lhcController/lhcSeats-controller.xml			
 			/WEB-INF/lhcController/lhcPcMenu-controller.xml			
 			/WEB-INF/lhcController/lhcPcSpec-controller.xml	
 			/WEB-INF/lhcController/lhcMyChar-controller.xml	
