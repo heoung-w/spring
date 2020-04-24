@@ -15,6 +15,9 @@
 <style>
 	body {
 	  padding-top: 50px;
+	background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	background-repeat : no-repeat;
+	background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -55,7 +58,7 @@ table.type09 td {
 </div>
 <body style="background-color: aliceblue">
 <div class="container">
-		<h1 align="center">PC방 전체 리스트</h1>	
+		<h1 align="center" style="color: white;">PC방 전체 리스트</h1>	
 		<%--Pc방 정보글 없을때 --%>
 		<c:if test="${count == 0}">
 			<table>
@@ -78,22 +81,22 @@ table.type09 td {
 			<table class="type09">
 			<thead>
 				<tr scope="cols">
-					<th>No.</th>
-					<th>PC방 명</th>
-					<th>사진</th>
-					<th>전화번호</th>
-					<th>주소</th>
-					<th>정보</th>
-					<th>좌석 수</th>
+					<th style="color: white;">No.</th>
+					<th style="color: white;">PC방 명</th>
+					<th style="color: white;">사진</th>
+					<th style="color: white;">전화번호</th>
+					<th style="color: white;">주소</th>
+					<th style="color: white;">정보</th>
+					<th style="color: white;">좌석 수</th>
 				</tr>
 			</thead>
 				<!-- for문 반복문 돌아가기  -->
 			<c:forEach var="pc" items="${pcList}">
-				<tr>
-					<th scope="row">${number}
+				<tr style="color: white;">
+					<th scope="row" style="color: black; background-color: gray;">${number}
 						<c:set var="number" value="${number-1}" />
 					</th>
-					<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
+					<td><a style="color: skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
 					<td>
 						<c:if test="${pc.lhc_img==null}">
 							<img src="/lhc/lhcResources/lhcImg/Desert.jpg" width="100"/>
@@ -143,8 +146,5 @@ table.type09 td {
 			<td colspan="6"><button onclick = "history.go(-1)" style="color: black;" class="btn btn-default">뒤로</button></td>
 		</tr>
 	</table>
-	<div class="container">
-<jsp:include page="../mFooter.jsp"/>
-</div>
 </body>
 </html>

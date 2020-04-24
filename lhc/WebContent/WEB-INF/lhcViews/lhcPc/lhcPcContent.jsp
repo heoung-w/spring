@@ -32,6 +32,9 @@
 <style>	   
 	body {
 	  padding-top: 50px;
+	  background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	  background-repeat : no-repeat;
+	  background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -47,7 +50,7 @@
 	    padding: 10px;
 	    font-weight: bold;
 	    vertical-align: top;
-	    color: #369;
+	    color: white;
 	    border-bottom: 3px solid #036;
 	}
 	table.type09 tbody th {
@@ -76,20 +79,19 @@
     function spec() {
 		window.open("/lhc/lhcPcSpec/lhcPcSpecContent.lhc?lhc_name=${pc.lhc_name}","","width=500,height=500,left=900,top=200");
 	}
-    
-    //좋아요 관련 함수 메서드
+
     var number = "${pc.lhc_num}";
     $(document).ready(function(){
     	$(".like").click(function(){
     		var num ="${pc.lhc_num}";
     		$.ajax({
     			type: "post",
-				url : "../lhcMember/lhcLikeCheck.lhc",	// 처리할 곳으로 보내주고
+				url : "../lhcMember/lhcLikeCheck.lhc",
 				data : {num : num},
-				success : function(data){	// 리턴값을 여기서 받는다 yes or no
+				success : function(data){	
 					var key=JSON.parse(data);
-					console.log(key["check"]); //4
-					console.log(key["likeCountdo"]);//28.26
+					console.log(key["check"]); 
+					console.log(key["likeCountdo"]);
 					var result = '';
 					if(key["check"]==true){
 						result += '<i class="fas fa-heart" style="color:red"></i>';
@@ -123,15 +125,15 @@
 			</tr>
 		</thead>
 		<thead>
-			<tr scope="row">
-				<td>소개글</td>
+			<tr scope="row" style="color: white;">
+				<td >소개글</td>
 				<td colspan="2">${pc.lhc_info}</td>
 			</tr>
 			<tr>
 				<td><a href="#" onclick="return menu()"><button type="button" class="btn btn-default">음식 메뉴</button></a></td>
 				<td><a href="#" onclick="return spec()"><button type="button" class="btn btn-default">pc 사양</button></a></td>
 			</tr>
-			<tr>
+			<tr style="color: white;">
 				<td>♥찜하기♥</td>
 				<td>♥좋아요♥${pc.lhc_like}</td>
 			</tr>
@@ -181,13 +183,13 @@
 		     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		     map.setCenter(coords);
 		 } 
-		});  
+		}); 
 	</script>	
 </c:if>
 
 <c:if test="${sessionScope.memId!=null}">
-	<h3 align="center">PC방 정보</h3>
-		<table class="type09" align="center">
+	<h3 align="center" style="color: white;">PC방 정보</h3>
+		<table class="type09" align="center" style=" width:1100px;">
 			<thead>
 			<tr scope="row">
 				<th>
@@ -202,7 +204,7 @@
 			</tr>
 			</thead>
 			<thead>
-				<tr scope="row">
+				<tr scope="row" style="color: white;">
 					<td>소개글</td>
 					<td colspan="2">${pc.lhc_info}</td>
 				</tr>
@@ -211,8 +213,8 @@
 					<td><a href="#" onclick="return spec()"><button type="button" >pc 사양</button></a></td>
 				</tr>
 				
-				<tr>
-					<td><a href="/lhc/lhcMember/lhcMyFavorite.lhc?lhc_id=${lhc_id}&lhc_num=${pc.lhc_num}&pageNum=${pageNum}&state=${pc.lhc_state}">♥찜하기♥</a></td>
+				<tr style="color: white;">
+					<td><a style="color: yellow;" href="/lhc/lhcMember/lhcMyFavorite.lhc?lhc_id=${lhc_id}&lhc_num=${pc.lhc_num}&pageNum=${pageNum}&state=${pc.lhc_state}">♥찜하기♥</a></td>
 					<td id="likeCheck">
 	 				<c:if test="${check == true}">
 						<a href="#" class="like"><i class="fas fa-heart" style="color:red"></i></a> 좋아요 : <span id="likeCount">${pc.lhc_like}</span> 개
@@ -229,8 +231,8 @@
 				</tr>
 			</thead>
 		</table>
-		
-	<div id="map" style="width:710px; height:200px; margin-left: 220px"></div>
+	</br>	
+	<div id="map" style="width:1130px; height:200px;"></div>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ec698eb01fcb8a6e180a95425f45904&libraries=services,clusterer,drawing"></script>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -271,7 +273,8 @@
 		 } 
 		}); 
 	</script>
-	
+	<br/>
+
 	<form align="center" action="/lhc/lhcMyChar/lhcMyCharSeatsForm.lhc" method="post">
 		<input type="hidden" name="pageNum" value="${pageNum}" />
 		<input type="hidden" name="lhc_num" value="${pc.lhc_num}" />
@@ -285,6 +288,11 @@
 			<h3 align="center">일반 고객들만 예약 가능합니다<h3>
 		</c:if>
 </c:if>
+<br/><br/><br/>
+<br/><br/>
+</div>
+<div class="container">
+<jsp:include page="../mFooter.jsp"/>
 </div>
 </body>
 </html>

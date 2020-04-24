@@ -52,7 +52,7 @@ ul{
 						<button onclick="window.location.href='/lhc/lhcPc/lhcPcRegisterForm.lhc'"  class="btn btn-default">신규 pc 등록 요청</button>
 					</li>
 					<li>
-						<button onclick="window.location.href='/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${pageNum}&state=${state}'"  class="btn btn-default">내 PC 정보</button>
+						<button onclick="window.location.href='/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${pageNum}&state=${state}'"  class="btn btn-default">PC 정보</button>
 					</li>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMember/lhcModifyForm.lhc'"  class="btn btn-default">회원정보수정</button>

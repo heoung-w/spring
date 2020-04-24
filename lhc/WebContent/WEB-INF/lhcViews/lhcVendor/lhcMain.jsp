@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Vendor Main</title>
+	<title>Admin Main</title>
 </head>
 <body>
 <div class="container">

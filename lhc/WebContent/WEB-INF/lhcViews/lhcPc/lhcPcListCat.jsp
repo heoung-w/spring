@@ -14,6 +14,9 @@
 <style>
 	body {
 	  padding-top: 50px;
+	  background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	  background-repeat : no-repeat;
+	  background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -30,11 +33,11 @@ ul{
 <jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"/>
 </div>
 <body style="background-color: aliceblue">
-<h2 align="center" style="font-size: large;">카테고리 보기</h2>
+<h2 align="center" style="font-size: large; color: white;">카테고리 보기</h2>
 <div class="container" >
 	<ul align="center">
 		<li>
-			<button onclick="window.location.href='lhcPcCatList.lhc'"  class="btn btn-default">매출순</button>
+			<button onclick="window.location.href='lhcPcCatList.lhc'"  class="btn btn-default" >매출순</button>
 		</li>
 		<li>
 			<button onclick="window.location.href='lhcPcFavList.lhc'"  class="btn btn-default">인기순</button>

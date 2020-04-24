@@ -40,10 +40,10 @@ ul{
 <body style="background-color: aliceblue">
 <div class="container" >
 <br/>
-<h2 align="center" style="font-size: large;">회원 마이페이지</h2>
+<h2 align="center" style="font-size: large; color: skyblue;">회원 마이페이지</h2>
 <div class="form-group">
 	<ul align="center">
-		<li colspan="6">${sessionScope.memId} 님</li>
+		<li colspan="6" style="color: skyblue;">${sessionScope.memId} 님</li>
 	</ul>
 	<ul align="center">
 		<li>
@@ -66,9 +66,6 @@ ul{
 		</li>
 	</ul>
 </div>
-</div>
-<div class="container">
-<jsp:include page="../mFooter.jsp"/>
 </div>
 </body>                  
 </c:if>

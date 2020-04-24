@@ -359,11 +359,9 @@ public class LhcMemberBean {
 	public String lhcMyFavorite(String state, String pageNum, String lhc_id, String lhc_num, Model model, HttpSession session)throws Exception{
 		String id = (String)session.getAttribute("memId");
 		//lhc_id ==> 찜 누른 회원 id // lhc_num ==> 찜 당한 pc방 num.
-		
 		// #1. 찜 리스트 select하는 sql 
 		String fav = (String)lhcMemberDAO.selectFav(lhc_id);
 		//System.out.println(fav+"   fav!");
-		
 		LhcMemberVO vo = new LhcMemberVO();
 		String num = null;
 		if(fav == null) {	//찜 컬럼에 아무것도 없으면,

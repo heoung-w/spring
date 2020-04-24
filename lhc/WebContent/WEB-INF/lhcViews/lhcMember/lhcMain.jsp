@@ -15,21 +15,80 @@
 		#category li:last-child{margin-right:0;border-right:0;}
 		#category li img {display: block;margin:80 auto 3px;width:27px;height: 28px; margin-left: 10px;}
 		#category li.on .category_bg {background-position-x:-46px;}
+	body{
+		background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+		background-repeat : no-repeat;
+		background-size : cover;
+	}
+	/*2020.04.23 추가 내용 시작 css*/
+	*{
+        margin: 0; padding: 0;
+      }
+      .slide{
+        width: 1130px;
+        height: 500px;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+      }
+      .slide ul{
+        width: 5650px;
+        position: absolute;
+        top:0;
+        left:0;
+        font-size: 0;
+      }
+      .slide ul li{
+        display: inline-block;
+      }
+      #back{
+        position: absolute;
+        top: 250px;
+        left: 0;
+        cursor: pointer;
+        z-index: 1;
+        transform: rotate(180deg);
+        background-color: gray;
+      }
+      #next{
+        position: absolute;
+        top: 250px;
+        right: 0;
+        cursor: pointer;
+        z-index: 1;
+        
+        background-color: gray;
+      }
+	
+	  .image{
+	  	background-color: white;
+		width: 100%;
+		height: 1500px;
+		margin: 0 auto;
+		padding: 0px;
+		float: left;
+	  	background-image: url('/lhc/lhcResources/lhcImg/pc방배경1.jpg')
+	  	
+	  }
+	  
+	  .map_wrap ul {display: table; margin-right: auto; margin-left: auto;}
+/*2020.04.24 추가 내용 끝 css*/
+	
 	</style>
-	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
-<body style="background-color: aliceblue">
+<body style="background-color: black;">
 <div class="container">
 <!-- 헤더 -->
 <jsp:include page="../lhcHeader.jsp"/>
 
 <!-- 메인 -->
-<div id="map" style="width:100%;height:350px;"></div>
 <!-- <button class="btn btn-primary" onclick="window.location.href='/lhc/lhcPc/lhcPcRegisterForm.lhc'">pc등록</button> -->
 <!-- <button  class="btn btn-danger" onclick="window.location.href='/lhc/lhcPc/lhcPcListAll.lhc'">pc방리스트보기</button> -->
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ec698eb01fcb8a6e180a95425f45904&libraries=services,clusterer,drawing"></script>
 <c:if test="${sessionScope.memId==null}">
+<div id="map" style="width:1130px; height:350px; margin-left: 400px; margin-top: -15px;"></div>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
@@ -57,12 +116,52 @@
         });      
         infowindow.open(map, marker);
 		
+     // 2020.04.23 추가 내용 javascript
+
+    	$(document).ready(function(){
+          var imgs;
+          var img_count;
+          var img_position = 1;
+
+          imgs = $(".slide ul");
+          img_count = imgs.children().length;
+
+          //버튼을 클릭했을 때 함수 실행
+          $('#back').click(function () {
+            back();
+          });
+          $('#next').click(function () {
+            next();
+          });
+
+          function back() {
+            if(1<img_position){
+              imgs.animate({
+                left:'+=1130px'
+              });
+              img_position--;
+            }
+          }
+          function next() {
+            if(img_count>img_position){
+              imgs.animate({
+                left:'-=1130px'
+              });
+              img_position++;
+            }
+          }
+    	 });
+            
+    // 2020.04.23 추가 내용 끝 javascript
 	</script>
+	
 </c:if>
+
 <c:if test="${sessionScope.memId!=null}">
 <div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-    <ul id="category">
+    <div id="map" style="width:1130px;height:100%;position:relative;overflow:hidden; margin-left: 870px; margin-top:-15px;"></div>
+    
+    <ul id="category" style="margin-right: 100px;">
         <li id="BK9" data-order="0"> 
             <img src="/lhc/lhcResources/lhcImg/greenn.JPG"></img>
             여유
@@ -263,9 +362,64 @@
 		    	};
 		    }
 		}
+		
+		
+		// 2020.04.23 추가 내용 javascript
+
+		$(document).ready(function(){
+	      var imgs;
+	      var img_count;
+	      var img_position = 1;
+
+	      imgs = $(".slide ul");
+	      img_count = imgs.children().length;
+
+	      //버튼을 클릭했을 때 함수 실행
+	      $('#back').click(function () {
+	        back();
+	      });
+	      $('#next').click(function () {
+	        next();
+	      });
+
+	      function back() {
+	        if(1<img_position){
+	          imgs.animate({
+	            left:'+=1130px'
+	          });
+	          img_position--;
+	        }
+	      }
+	      function next() {
+	        if(img_count>img_position){
+	          imgs.animate({
+	            left:'-=1130px'
+	          });
+	          img_position++;
+	        }
+	      }
+		 });
 	</script>
 </c:if>
+<h2 style="margin-left: 295px;  color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 30px; letter-spacing: -1px; line-height: 1; color:white; margin-left: 870px;">Top PC방</h2>
+<br />
+<div class="slide">
+      <img id="back" src="/lhc/lhcResources/lhcImg/arrowNext3.png" alt="" width="100">
+      <ul>
+        <li><img src="/lhc/lhcResources/lhcImg/G7PC방.jpg" alt="" width="1130" height="500"></li>
+        <li><img src="/lhc/lhcResources/lhcImg/포포PC방.jpg" alt="" width="1130" height="500"></li>
+        <li><img src="/lhc/lhcResources/lhcImg/바닐라PC방.jpg" alt="" width="1130" height="500"></li>
+        <li><img src="/lhc/lhcResources/lhcImg/스위티PC방.jpg" alt="" width="1130" height="500"></li>
+        <li><img src="/lhc/lhcResources/lhcImg/아트PC방.jpg" alt="" width="1130" height="500"></li>
+      </ul>
+      <img id="next" src="/lhc/lhcResources/lhcImg/arrowNext3.png" alt="" width="100">
+    </div>
 </body>
+
+<!-- 2020.04.23 추가 적용 끝 -->
+
+<br />
+<br />
 <div class="container">
 <jsp:include page="../mFooter.jsp"/>
 </div>

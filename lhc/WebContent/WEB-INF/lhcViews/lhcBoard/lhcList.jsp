@@ -57,18 +57,18 @@ table.type09 td {
 </div>
 <body style="background-color: aliceblue">
 	<div class="container">
-		<h1 align="center">게시판</h1>
+		<h1 align="center" style="color: skyblue;"> 공지 게시판</h1>
 		
 		<%--게시글 없을때 --%>
 		<c:if test="${count == 0}">
 		<table>
 			<tr>
 				<td>
-					<button onclick="window.location='/lhc/lhcBoard/lhcWriteForm.lhc'">글쓰기</button>
+					<button onclick="window.location='/lhc/lhcBoard/lhcWriteForm.lhc'" style="color: skyblue;">글쓰기</button>
 				</td>
 			</tr>
 			<tr>
-				<td>공지사항이 없습니다.</td>
+				<td style="color: skyblue;">공지사항이 없습니다.</td>
 			</tr>
 		</table>
 		</c:if>
@@ -85,7 +85,7 @@ table.type09 td {
 				</td>
 			</tr>
 			<thread>
-				<tr scope="cols">
+				<tr scope="cols" style="color:skyblue;">
 					<td>No.</td>
 					<td>제 목</td>
 					<td>작성자</td>
@@ -95,11 +95,11 @@ table.type09 td {
 			</thread>
 			<!-- for문 반복문 돌아가기 -->
 		<c:forEach var="article" items="${articleList}">
-			<tr>
+			<tr style="color: white;">
 				<td>${number}
 					<c:set var="number" value="${number-1}" />
 				</td>
-				<td><a href="/lhc/lhcBoard/lhcContent.lhc?lhc_num=${article.lhc_num}&pageNum=${currentPage}">${article.lhc_subject}</a></td>
+				<td><a style="color: skyblue;" href="/lhc/lhcBoard/lhcContent.lhc?lhc_num=${article.lhc_num}&pageNum=${currentPage}">${article.lhc_subject}</a></td>
 				<td>${article.lhc_writer}</td>
 				<td>${article.lhc_reg}</td>
 				<td>${article.lhc_readcount}</td>

@@ -16,13 +16,29 @@
 	}
 </style>
 <nav class="navbar navbar-inverse" style="margin-top: 0px;">
-<div class="container">
- <div class="navbar-header">
-<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-<span class="sr-only">Toggle navigation</span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-<span class="icon-bar"></span>
-</button>
-<a class="navbar-brand" href="#">고객센터</a>
+	<div class="container" style="margin-top: 6px;">
+		<div class="navbar-header" style="margin-left: 33px;">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a style="color:white;">저작권자</a>
+			<a style="color:white;">글로벌 IT</a><br/>
+			<a style="color:white;">대표 : LHC  개인정보보호책임자 : lhc1004@naver.com</a><br/>
+			<a style="color:white;">대표번호 010-0000-0000</a><br/>
+			<p style="color:white;"> Copyright ⓒ. All rights reserved.</p>
+		</div>
+		
+		<table style="margin-left: 880px; margin-top: 33px;">  
+		<tr>
+			<td >
+				<a style="color:yellow; font-size: large;" href = "/lhc/lhcBoard/lhcList.lhc">고객 만족 센터</a>
+				<a style="color:skyblue;">T : 1544-0000</a>
+			</td>
+		</tr>	
+		</table>
+	</div>
+</nav>		
         

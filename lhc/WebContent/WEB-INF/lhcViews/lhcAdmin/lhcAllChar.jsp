@@ -10,7 +10,7 @@
 <!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
 <body>
 	<br />
-	<h1 align="center">관리자</h1>	
+	<h1 align="center" style="color: skyblue;">관리자</h1>	
 	<%--예약 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>
@@ -34,12 +34,12 @@
 		</tr>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="charList" items="${charList}">
-		<tr>
+		<tr style="color: white;">
 			<td>${number}
 				<c:set var="number" value="${number-1}" />
 			</td>
 			<td>${charList.lhc_count}</td>
-			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${charList.lhc_num}&pageNum=${currentPage}">${charList.lhc_name}</a></td>
+			<td><a style="color: skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${charList.lhc_num}&pageNum=${currentPage}">${charList.lhc_name}</a></td>
 			<td>${charList.lhc_id}</td>
 			<td>${charList.lhc_price}원</td>
 			<td>${charList.lhc_reg}</td>

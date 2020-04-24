@@ -15,6 +15,9 @@
 <style>
 	body {
 	  padding-top: 50px;
+	  background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	  background-repeat : no-repeat;
+	  background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -24,7 +27,6 @@ table.type09 {
     border-collapse: collapse;
     text-align: left;
     line-height: 1.5;
-
 }
 table.type09 thead th {
     padding: 10px;
@@ -56,7 +58,7 @@ table.type09 td {
 <body style="background-color: aliceblue">
 <div class="container">
 	<br />
-	<h1 align="center" style="font-size: x-large;">PC방 매출순 리스트</h1>		
+	<h1 align="center" style="font-size: x-large; color: white;">PC방 매출순 리스트</h1>		
 	<%--Pc방 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>
@@ -76,26 +78,26 @@ table.type09 td {
 	<table class="type09">
 		<thead>
 			<tr scope="cols">
-				<th>No.</th>
-				<th>PC방 명</th>
-				<th>사진</th>
-				<th>전화번호</th>
-				<th>주소</th>			
+				<th style="color: white;">No.</th>
+				<th style="color: white;">PC방 명</th>
+				<th style="color: white;">사진</th>
+				<th style="color: white;">전화번호</th>
+				<th style="color: white;">주소</th>			
 			</tr>
 		</thead>
 		<!-- for문 반복문 돌아가기 -->
 	<c:forEach var="pcMoneyList" items="${pcMoneyList}">
-		<tr>
-			<th scope="row">${number+1}위
+		<tr style="color: white;">
+			<th scope="row" style="color: black; background-color: gray;">${number+1}위
 				<c:set var="number" value="${number+1}" />
 			</th>
-			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pcMoneyList.lhc_num}&pageNum=${currentPage}">${pcMoneyList.lhc_name}</a></td>
+			<td><a style="color:skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pcMoneyList.lhc_num}&pageNum=${currentPage}">${pcMoneyList.lhc_name}</a></td>
 			<td>
 				<c:if test="${pcMoneyList.lhc_img==null}">
 					<img src="/lhc/lhcResources/lhcImg/Desert.jpg" width="100"/>
 				</c:if>
 				<c:if test="${pcMoneyList.lhc_img!=null }">
-					<img src="/lhc/lhcSave/${pc.lhc_img}" width="100"/>
+					<img src="/lhc/lhcSave/${pcMoneyList.lhc_img}" width="100"/>
 				</c:if>
 			</td>
 			<td>${pcMoneyList.lhc_phone}</td>
@@ -118,15 +120,15 @@ table.type09 td {
 			<c:set var="endPage" value="${pageCount}" />
 		</c:if>
 		<c:if test="${startPage > pageBlock}">
-			<a href="/lhc/lhcPc/lhcPcListAll.lhc?pageNum=${startPage-pageBlock}" > &lt;</a>
+			<a href="/lhc/lhcPc/lhcPcCatList.lhc?pageNum=${startPage-pageBlock}" > &lt;</a>
 		</c:if>
 		
 		<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" >
-			<a href="/lhc/lhcPc/lhcPcListAll.lhc?pageNum=${i}" class="nums"> &nbsp; ${i} &nbsp;</a>
+			<a href="/lhc/lhcPc/lhcPcCatList.lhc?pageNum=${i}" class="nums"> &nbsp; ${i} &nbsp;</a>
 		</c:forEach>
 		
 		<c:if test="${endPage < pageCount}">
-			<a href="/lhc/lhcPc/lhcPcListAll.lhc?pageNum=${startPage+pageBlock}"> &gt;</a>
+			<a href="/lhc/lhcPc/lhcPcCatList.lhc?pageNum=${startPage+pageBlock}"> &gt;</a>
 		</c:if>
 	</c:if>
 	</div>

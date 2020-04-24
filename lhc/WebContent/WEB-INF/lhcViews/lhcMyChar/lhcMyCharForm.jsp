@@ -60,7 +60,7 @@ table.type09 td {
 <body style="background-color: aliceblue">
 <div class="container">
 	<br />
-	<h1 align="center" style="font-size: x-large;">예약목록</h1>
+	<h1 align="center" style="font-size: x-large; color: white;">예약목록</h1>
 	<%--예약목록이 없을때 --%>
 	<c:if test="${count == 0}">
 		<script>
@@ -82,8 +82,8 @@ table.type09 td {
 				</tr>
 			</thead>		
 		<c:forEach var="resList" items="${resList}">	
-			<tr>
-				<th scope="row">${resList.lhc_name}</th>
+			<tr style="color:white;">
+				<td scope="row" id="m" style="color: skyblue;">${resList.lhc_name}</th>
 				<td>${resList.lhc_seats}</td>
 				<td>${resList.lhc_price}</td>
 				<td>${resList.lhc_reg}</td>

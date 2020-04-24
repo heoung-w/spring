@@ -24,7 +24,7 @@
 	<%--PC방 정보 있을때 --%>
 	<c:if test="${count > 0}">
 	<table>
-		<tr>
+		<tr style="color: skyblue;">
 			<td>No.</td>
 			<td>PC방 명</td>
 			<td>사진</td>
@@ -35,11 +35,11 @@
 		</tr>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="pc" items="${pcList}">
-		<tr>
+		<tr style="color: white;">
 			<td>${number}
 				<c:set var="number" value="${number-1}" />
 			</td>
-			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
+			<td><a style="color: skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
 			<td>
 				<c:if test="${pc.lhc_img==null}">
 					<img src="/lhc/lhcResources/lhcImg/Desert.jpg" width="100"/>

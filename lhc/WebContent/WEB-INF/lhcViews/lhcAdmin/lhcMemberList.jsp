@@ -11,12 +11,12 @@
 <!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
 <body>
 	<br />
-	<h1 align="center">회원 전체 리스트</h1>	
+	<h1 align="center" style="color: skyblue;">회원 전체 리스트</h1>	
 	<%--회원 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>
 		<tr>
-			<td>회원 정보가 없습니다.</td>
+			<td style="color: skyblue;">회원 정보가 없습니다.</td>
 		</tr>
 		<tr>
 			<td>
@@ -29,7 +29,7 @@
 	<%--PC방 정보 있을때 --%>
 	<c:if test="${count > 0}">
 	<table>
-		<tr>
+		<tr style="color: blue;">
 			<td>No.</td>
 			<td>회원아이디</td>
 			<td>회원명</td>

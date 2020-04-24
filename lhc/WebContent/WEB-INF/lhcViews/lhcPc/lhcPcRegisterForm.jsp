@@ -147,7 +147,7 @@ table.type09 td {
 <body style="background-color: aliceblue">
 <div class="container">
 	<br/>
-	<h1 align="center" style="font-size: x-large;">PC방 등록(업주)</h1>
+	<h1 align="center" style="font-size: x-large;">PC방 등록</h1>
 	<form action="/lhc/lhcPc/lhcPcRegisterPro.lhc" method="post" name="RegisterForm" id="RegisterForm1" onsubmit="return PCcheck()" enctype="multipart/form-data">
 		<%--숨겨서 글 속성에 관련된 데이터 pro에 전송 --%>
 		<input type="hidden" name="lhc_num" value="${lhc_num}"/>
@@ -184,7 +184,7 @@ table.type09 td {
 			</tr>		
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="PC방 등록 요청" class="btn btn-default"/>
+					<input type="submit" value="PC방 등록" class="btn btn-default"/>
 					<input type="button" value="PC방 리스트" onclick="window.location='/lhc/lhcPc/lhcPcListAll.lhc'" class="btn btn-default"/>
 				</td>
 			</tr>			

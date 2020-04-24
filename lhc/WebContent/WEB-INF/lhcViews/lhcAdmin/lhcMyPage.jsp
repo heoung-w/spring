@@ -12,7 +12,7 @@
 </script>
 <body>
 <br/>
-<h2 align="center">관리자 마이페이지</h2>
+<h2 align="center" style="color: skyblue;">관리자 마이페이지</h2>
 <table>
 	<tr>
 		<td>

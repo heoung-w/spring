@@ -9,6 +9,9 @@
 <style>
 	body {
 	  padding-top: 50px;
+	  background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+		background-repeat : no-repeat;
+		background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -17,7 +20,7 @@
 </style>
 <c:if test="${sessionScope.memId==null}">
 <nav class="navbar navbar-inverse" style="margin-top: -30px;">
-	<div class="container">
+	<div class="container" style="height: 120px; background-color:white; width:1140px; background-image: url('/lhc/lhcResources/lhcImg/4.jpg');">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -25,43 +28,46 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">LHC</a>
+          <a class="navbar-brand" href="/lhc/lhcMember/lhcMain.lhc"><img src="/lhc/lhcResources/lhcImg/logo.JPG" style="width: 100px; height: 80px;"></a>
         </div>
-      	<div id="navbar" class="navbar-collapse collapse" >
-		
+      	<div id="navbar" class="navbar-collapse collapse" style="margin-top: 15px;">      	
           <form class="navbar-form navbar-right" style="padding-right:20px" action="/lhc/lhcMember/lhcLoginPro.lhc">
             <div class="form-group">
-              <input type="text" placeholder="id" class="form-control" name="lhc_id" style="width:130px; height:29px">
+              <input type="text" placeholder="id" class="form-control" name="lhc_id" style="width:130px; height:29px;">
             </div>
-            <button type="submit" class="btn btn-default" style="width:66px; height:29px">로그인</button><br/>
+            <button type="submit" class="btn btn-default" style="width:68px; height:29px ">로그인</button><br/>
             <div class="form-group" style="margin-top:10px;">
               <input type="password" placeholder="Password" name="lhc_pw"  class="form-control" style="width:130px; height:29px">
             </div>
-            <button onclick = "window.location.href='/lhc/lhcMember/lhcSignupForm.lhc'"class="btn btn-default" style="margin-top:10px; width:80px; height:29px">회원가입</button>
+            <button type="submit" class="btn btn-default" style="width:68px; height:29px; margin-top:10px;" >회원가입</button><br/>
           </form>
-			<form class="navbar-form navbar-right" action = "/lhc/lhcPc/lhcPcListAll.lhc" method ="post" align="center">
-				<div class="form-group">
-					<div class="input-group">
-						<div class="input-group-addon">
-							<select name = "sel" style=" height: 30px;" class="form-control">
-								<option value ="lhc_name">PC방 명</option><%--value => DB에 있는 이름으로 써야 함.--%>
-								<option value ="lhc_addr">주소</option>					
-							</select>
-							<input type="text" name ="search" style="width: 200px;  height: 30px;" class="form-control" >
-						</div>
-						<div class="input-group-addon">
-							<input type="submit" value ="검색" style="height: 30px;"class="btn btn-default">
-						</div>
-					</div>
+        
+        <div class="bbb" style="text-align: center; align-self:center; margin-left:200px; margin-top:18px; ">
+	<form class="form-inline" action = "/lhc/lhcPc/lhcPcListAll.lhc" method ="post">
+		<div class="form-group">
+			<div class="input-group">
+				<div class="input-group-addon">
+					<select name = "sel" style=" height: 30px;" class="form-control">
+						<option value ="lhc_name">PC방 명</option><%--value => DB에 있는 이름으로 써야 함.--%>
+						<option value ="lhc_addr">주소</option>					
+					</select>
+					<input type="text" name ="search" style=" margin-top:0px; width: 200px;  height: 30px;" class="form-control" >
 				</div>
-			</form>
-        </div><!--/.navbar-collapse -->
-</div>
-</nav>
-    <nav class="navbar navbar-default" style="margin-top: -20px;">
+				<div class="input-group-addon">
+					<input type="submit" value ="검색" style="height: 30px;"class="btn btn-default">
+				</div>
+			</div>
+		</div>
+	</form>
+	</div>
+	</div>
+</nav>  
+    
+    <nav class="navbar navbar-default" style="margin-top: -20px;">      
         <div class="navbar-header">
           <a class="navbar-brand" href="#">카테고리</a>
         </div>
+        
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/lhc/lhcPc/lhcPcListAll.lhc">PC방 전체보기</a></li>
@@ -74,7 +80,7 @@
 </c:if>
 <c:if test="${sessionScope.memId!=null}">
 	<nav class="navbar navbar-inverse" style="margin-top: -30px;">
-      <div class="container" style="z-index: 3;">
+      <div class="container" style="height: 120px; background-color:white; width:1140px; background-image: url('/lhc/lhcResources/lhcImg/4.jpg');">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -82,21 +88,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">LHC</a>
+          <a class="navbar-brand" href="/lhc/lhcMember/lhcMain.lhc"><img src="/lhc/lhcResources/lhcImg/logo.JPG" style="width: 100px; height: 80px;"></a>
         </div>
-        <div id="navbar" class="navbar-form navbar-right" style="padding-right: 45px;">
+        
+        <div id="navbar" class="navbar-form navbar-right" style="margin-bottom: 15px;">
        		<td "WebContent/WEB-INF"d style="padding-right: 532px; border: hidden;">
 			</td>
-			<td style="padding-right: 50px;">
-				<h5 class="navbar-brand" style="margin-top: -10px;">${sessionScope.memId}님 환영합니다.</h5>
-				<br />
-				<button class="btn btn-success" onclick="window.location.href='/lhc/lhcMember/lhcLogout.lhc'" style="width:100px; height:35px; margin-top: -10px;" >로그아웃</button>
-				<button class="btn btn-success" onclick="window.location.href='/lhc/lhcMember/lhcMyPage.lhc'" style="width:100px; height:35px; margin-top: -10px;">마이페이지</button>
+			<td style=" position:absolute; margin-right:50px;">
+				<h5 style="margin-top:30px; color: white;">${sessionScope.memId}님 환영합니다.<br /></h5>
+				<button onclick="window.location.href='/lhc/lhcMember/lhcLogout.lhc'" style="width:100px; height:30px; margin-top: 0px;" class="btn btn-default">로그아웃</button>
+				<button onclick="window.location.href='/lhc/lhcMember/lhcMyPage.lhc'" style="width:100px; height:30px; margin-right: 25px; margin-top: 0px;" class="btn btn-default" >마이페이지</button>
 			</td>
       </div>
-     </div>
-    <div class="bbb" style="text-align: center;">
-	<form class="form-inline" action = "/lhc/lhcPc/lhcPcListAll.lhc" method ="post"  style="margin-top:-70px;" align="center">
+      
+    <div class="bbb" style="text-align: center; align-self:center; margin-left:200px; margin-top:33px; ">
+	<form class="form-inline" action = "/lhc/lhcPc/lhcPcListAll.lhc" method ="post">
 		<div class="form-group">
 			<div class="input-group">
 				<div class="input-group-addon">
@@ -104,7 +110,7 @@
 						<option value ="lhc_name">PC방 명</option><%--value => DB에 있는 이름으로 써야 함.--%>
 						<option value ="lhc_addr">주소</option>					
 					</select>
-					<input type="text" name ="search" style="width: 200px;  height: 30px;" class="form-control" >
+					<input type="text" name ="search" style=" margin-top:0px; width: 200px;  height: 30px;" class="form-control" >
 				</div>
 				<div class="input-group-addon">
 					<input type="submit" value ="검색" style="height: 30px;"class="btn btn-default">
@@ -112,12 +118,14 @@
 			</div>
 		</div>
 	</form>
-</div>
+	</div>
     </nav>
-    <nav class="navbar navbar-default" style="margin-top: -20px;">
+      
+    <nav class="navbar navbar-default" style="margin-top: -20px;">      
         <div class="navbar-header">
           <a class="navbar-brand" href="#">카테고리</a>
         </div>
+        
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/lhc/lhcPc/lhcPcListAll.lhc">PC방 전체보기</a></li>

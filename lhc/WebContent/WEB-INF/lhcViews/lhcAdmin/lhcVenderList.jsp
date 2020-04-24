@@ -29,7 +29,7 @@
 	<%--PC방 정보 있을때 --%>
 	<c:if test="${count > 0}">
 	<table>
-		<tr>
+		<tr style="color: skyblue;">
 			<td>No.</td>
 			<td>회원아이디</td>
 			<td>회원명</td>
@@ -40,11 +40,11 @@
 		<!-- for문 반복문 돌아가기 -->
 	<c:forEach var="article" items="${articleList}">
 		<c:if test ="${article.lhc_sep == 'v'}">
-			<tr>
+			<tr style="color: white;">
 				<td>${number}
 					<c:set var="number" value="${number-1}" />
 				</td>
-				<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}">${article.lhc_id}</a></td>
+				<td><a style="color: skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}">${article.lhc_id}</a></td>
 				<td>${article.lhc_name}</td>
 				<td>${article.lhc_phone}</td>
 				<td>${article.lhc_favorite}</td>

@@ -135,8 +135,8 @@
 			
 			
 			.text1{
-				background-color: black;
-				color: white;
+				background-color: white;
+				color: black;
 				width: 11px;
 				height: 1px;
 				margin: 6px;
@@ -147,8 +147,8 @@
 			}
 			
 			.text2{
-				background-color: black;
-				color: white;
+				background-color: white;
+				color: black;
 				width: 11px;
 				height: 1px;
 				margin: 6px;
@@ -159,8 +159,8 @@
 			}
 			
 			.text3{
-				background-color: black;
-				color: white;
+				background-color: white;
+				color: black;
 				width: 11px;
 				height: 1px;
 				margin: 6px;
@@ -172,7 +172,7 @@
 			}
 			
 			.whole{
-				background-color: black;
+				background-color: white;
 				width: 100%;
 				height: 1500px;
 				margin: 0 auto;
@@ -216,14 +216,8 @@
 	<script>
 			$(document).ready(function(){
 				
+				
 				var a = ${intReservedList};
-				
-				if(a != null){
-					var a = ${intReservedList};
-				}else{
-					var a = 0;
-				}
-				
 				
 				for(var i = 0; i < a.length; i++){
 					var name = a[i];
@@ -271,20 +265,18 @@
 	
 	
 </head>
-
-<c:if test="${sessionScope.memId != null}"> 
+<c:if test="${sessionScope.memId != null}">
 <body>
-
 	<section class="whole">
 		<form action="/lhc/lhcMyChar/lhcMyCharSeatsPro.lhc" method="post" name="inputForm" onsubmit="return checkIt()">
-			<h1 align="center" style="color: white; font-family: 'Hanna', serif;">${pc.lhc_name} 의 PC방 좌석도 </h1>
-			<h3 style="color: white; font-family: 'Jeju Hallasan', serif;">${sessionScope.memId}님 좌석번호를 선택후 예약하세오 <input type="submit" value="예약하기" /> </h3> 
+			<h1 align="center" style="color: black; font-family: 'Hanna', serif;">${pc.lhc_name} 의 PC방 좌석도 </h1>
+			<h3 style="color: black; font-family: 'Jeju Hallasan', serif;">${sessionScope.memId}님 좌석번호를 선택후 예약하세오 <input type="submit" value="예약하기" /> </h3>
 				 <!-- 네모로 색깔 보여주기 -->
 				 <div class="lred"></div><b class="text1">사용중</b>	
 				 <div class="llime"></div><b class="text2">선택됨</b>
-				 <div class="lyellow"></div><b class="text3">사용가능</b> 
+				 <div class="lyellow"></div><b class="text3">사용가능</b>
 				 <br />
-				 
+				
 				
 				<%--추가로 보내야할 데이터들 --%>
 				<input type="hidden" name="lhc_num" value="${pc.lhc_num}" />
@@ -331,10 +323,11 @@
 	
 </body>
 </c:if>
-
-<c:if test="${sessionScope.memId == null && pageNumber == 0 && reservedList == null && intReservedList == null && lhc_num == 0}">
-	<h2>잘못된 경로입니다.</h2>
-	<input type="button" value="메인으로 가기" onclick="window.location='/lhc/lhcMember/lhcMain.lhc'" />
+<c:if test="${sessionScope.memId == null}">
+	<script>
+		alert("로그인 후 이용해주세요");
+	</script>
+	<c:redirect url="/lhcMember/lhcMain.lhc" />
 </c:if>
 <footer id="test"></footer>	
 </html>

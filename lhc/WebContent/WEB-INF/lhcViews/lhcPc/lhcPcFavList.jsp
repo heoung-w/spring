@@ -15,6 +15,9 @@
 <style>
 	body {
 	  padding-top: 50px;
+	   background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	  background-repeat : no-repeat;
+	  background-size : cover;
 	}
 	.starter-template {
 	  padding: 40px 15px;
@@ -56,7 +59,7 @@ table.type09 td {
 <body style="background-color: aliceblue">
 <div class="container">
 	<br />
-	<h1 align="center">PC방 인기순 리스트</h1>	
+	<h1 align="center" style="font-size: x-large; color: white;">PC방 인기순 리스트</h1>	
 	<%--Pc방 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table class="type09">
@@ -76,19 +79,19 @@ table.type09 td {
 	<table class="type09">
 		<thead>
 			<tr scope="cols">
-				<th>No.</th>
-				<th>PC방 명</th>
-				<th>사진</th>
-				<th>전화번호</th>
-				<th>주소</th>
-				<th>좌석 수</th>
-				<th>좋아요</th>
+				<th style="color: white;">No.</th>
+				<th style="color: white;">PC방 명</th>
+				<th style="color: white;">사진</th>
+				<th style="color: white;">전화번호</th>
+				<th style="color: white;">주소</th>
+				<th style="color: white;" >좌석 수</th>
+				<th style="color: white;">좋아요</th>
 			</tr>
 		</thead>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="pc" items="${pcList}">
-		<tr>
-			<th scope="row">${numnum}위
+		<tr style="color: white;">
+			<th scope="row" style="color: black; background-color: gray">${numnum}위
 				<c:set var="numnum" value="${numnum+1}" />
 			</th>
 			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>

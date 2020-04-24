@@ -83,7 +83,7 @@
 </div>
 <div class = "container">
 <c:if test="${sessionScope.memId=='admin'}">
-<h3 align="center">PC방 정보(관리자)</h3>
+<h3 align="center">PC방 정보</h3>
 	<table class="type09" align="center">
 		<thead>
 			<tr scope="row">
