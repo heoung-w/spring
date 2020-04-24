@@ -83,11 +83,11 @@
 </div>
 <div class = "container">
 <c:if test="${sessionScope.memId=='admin'}">
-<h3 align="center">PC방 정보</h3>
+<h3 align="center" style="color:white;font-size: x-large;">PC방 정보</h3>
 	<table class="type09" align="center">
 		<thead>
 			<tr scope="row">
-				<th >
+				<th>
 					<c:if test="${pc.lhc_img==null}">
 						<img src="/lhc/lhcResources/lhcImg/Desert.jpg" width="100"/>
 					</c:if>
@@ -99,7 +99,7 @@
 			</tr>
 		</thead>
 		<thead>
-			<tr scope="row">
+			<tr scope="row" style="color:white;">
 				<td>소개글</td>
 				<td colspan="2">${pc.lhc_info}</td>
 			</tr>
@@ -108,8 +108,8 @@
 				<td><a href="#" onclick="return spec()"><button type="button" class="btn btn-default">pc 사양</button></a></td>
 			</tr>
 			<tr>
-				<td>♥찜하기♥</td>
-				<td>♥좋아요♥${pc.lhc_like}</td>
+				<td style="color:yellow;">♥찜하기♥</td>
+				<td style="color:white;">♥좋아요♥${pc.lhc_like}</td>
 			</tr>
 			<tr>
 			<td colspan="3" align="center">

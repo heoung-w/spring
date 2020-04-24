@@ -39,12 +39,15 @@ ul{
 		<li>
 			<button onclick="window.location.href='lhcPcCatList.lhc'"  class="btn btn-default" >매출순</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='lhcPcFavList.lhc'"  class="btn btn-default">인기순</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='lhcPcCharList.lhc'"  class="btn btn-default">예약순</button>
 		</li>
+		<br/>
 	</ul>
 </div>
 </body>

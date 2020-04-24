@@ -6,12 +6,64 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="/lhc/lhcResources/style.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+<style>
+	body {
+	  padding-top: 50px;
+	background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	background-repeat : no-repeat;
+	background-size : cover;
+	}
+	.starter-template {
+	  padding: 40px 15px;
+	  text-align: center;
+	}
+table.type09 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+table.type09 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.type09 tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.type09 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+span{
+display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; 
+}
+
+</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
+<div class = "container">
+<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include>
+</div>
 <!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
 <body>
 	<br />
-	<h1 align="center">PC방 전체 리스트</h1>	
+	<h1 align="center" style="color:white; font-size: x-large;">PC방 등록 리스트</h1>	
 	<%--Pc방 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>
@@ -22,24 +74,27 @@
 	</c:if>
 	
 	<%--PC방 정보 있을때 --%>
+	<div class = "container">
 	<c:if test="${count > 0}">
-	<table>
-		<tr>
-			<td>No.</td>
-			<td>PC방 명</td>
-			<td>사진</td>
-			<td>전화번호</td>
-			<td>주소</td>
-			<td>정보</td>
-			<td>좌석 수</td>
+	<table class="type09">
+	<thead>
+		<tr scope="cols">
+			<th style="color: white;">No.</th>
+			<th style="color: white;">PC방 명</th>
+			<th style="color: white;">사진</th>
+			<th style="color: white;">전화번호</th>
+			<th style="color: white;">주소</th>
+			<th style="color: white;">정보</th>
+			<th style="color: white;">좌석 수</th>
 		</tr>
+	</thead>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="pc" items="${pcList}">
-		<tr>
-			<td>${number}
+		<tr style="color: white;">
+			<th scope="row" style="color: black; background-color: gray;">${number}
 				<c:set var="number" value="${number-1}" />
-			</td>
-			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
+			</th>
+			<td><a style="color:skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${currentPage}&state=${pc.lhc_state}">${pc.lhc_name}</a></td>
 			<td>
 				<c:if test="${pc.lhc_img==null}">
 					<img src="/lhc/lhcResources/lhcImg/Desert.jpg" width="100"/>
@@ -83,6 +138,7 @@
 			<a href="/lhc/lhcPc/lhcPcListAll.lhc?pageNum=${startPage+pageBlock}"> &gt;</a>
 		</c:if>
 	</c:if>
+	</div>
 	</div>
 </body>
 </html>

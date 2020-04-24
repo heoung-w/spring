@@ -68,7 +68,7 @@ table.type09 td {
 		</thead>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="favlist" items="${favList}">
-		<tr>
+		<tr style="color:white;">
 			<th scope="row">${numnum+1}번
 				<c:set var="numnum" value="${numnum+1}" />
 			</th>

@@ -49,21 +49,27 @@ ul{
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMyFavoriteListForm.lhc'" class="btn btn-default">pc방 찜목록</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMyChar/lhcMyCharForm.lhc'" class="btn btn-default">예약 내역</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMyPointForm.lhc'" class="btn btn-default">포인트 충전</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcModifyForm.lhc'" class="btn btn-default">회원정보수정</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcDeleteForm.lhc'" class="btn btn-default">회원정보삭제</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" class="btn btn-default">메인</button>
 		</li>
+		<br/>
 	</ul>
 </div>
 </div>
