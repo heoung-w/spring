@@ -51,15 +51,19 @@
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMyChar/lhcAllChar.lhc'" class="btn btn-default">매출 내역</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcPc/lhcStatePcList.lhc'" class="btn btn-default">등록 리스트</button>
 		</li>
-		<li>s
+		<br/>
+		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMemberList.lhc?sep=c'" class="btn btn-default">일반 회원</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMemberList.lhc?sep=v'" class="btn btn-default">업주 회원</button>
 		</li>
+		<br/>
 		<li>
 			<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'" class="btn btn-default">메인</button>
 		</li>

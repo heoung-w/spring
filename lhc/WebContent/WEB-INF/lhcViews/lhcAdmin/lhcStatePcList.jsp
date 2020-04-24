@@ -63,7 +63,7 @@ display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-ove
 <!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
 <body>
 	<br />
-	<h1 align="center" style="color:white; font-size: x-large;">PC방 등록 리스트</h1>	
+	<h1 align="center" style="color:white; font-size: x-large;">PC방 등록 리스트 ( 업주 요청 )</h1>	
 	<%--Pc방 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>

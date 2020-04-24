@@ -50,6 +50,10 @@ table.type09 td {
     vertical-align: top;
     border-bottom: 1px solid #ccc;
 }
+span{
+display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; 
+}
+
 </style>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
@@ -107,7 +111,7 @@ table.type09 td {
 					</td>
 					<td>${pc.lhc_phone}</td>
 					<td>${pc.lhc_addr}</td>
-					<td>${pc.lhc_info}</td>
+					<td><span>${pc.lhc_info}</span></td>
 					<td>${pc.lhc_seats}</td>
 				</tr>
 			</c:forEach>
