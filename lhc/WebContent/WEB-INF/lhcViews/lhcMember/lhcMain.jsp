@@ -88,7 +88,7 @@
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9ec698eb01fcb8a6e180a95425f45904&libraries=services,clusterer,drawing"></script>
 <c:if test="${sessionScope.memId==null}">
-<div id="map" style="width:1130px; height:350px; margin-left: 400px; margin-top: -15px;"></div>
+<div id="map" style="width:1130px; height:350px; margin-left: 385px; margin-top: -15px;"></div>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
@@ -159,7 +159,7 @@
 
 <c:if test="${sessionScope.memId!=null}">
 <div class="map_wrap">
-    <div id="map" style="width:1130px;height:100%;position:relative;overflow:hidden; margin-left: 870px; margin-top:-15px;"></div>
+    <div id="map" style="width:1130px;height:100%;position:relative;overflow:hidden; margin-left: 385px; margin-top:-15px;"></div>
     
     <ul id="category" style="margin-right: 100px;">
         <li id="BK9" data-order="0"> 

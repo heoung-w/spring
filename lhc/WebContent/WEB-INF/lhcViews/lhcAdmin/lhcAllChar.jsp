@@ -6,11 +6,59 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  		crossorigin="anonymous">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">	
+<style>
+	body {
+	  padding-top: 50px;
+	  background-image: url('/lhc/lhcResources/lhcImg/4.jpg');
+	  background-repeat : no-repeat;
+	  background-size : cover;
+	}
+	.starter-template {
+	  padding: 40px 15px;
+	  text-align: center;
+	}
+table.type09 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+}
+table.type09 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.type09 tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #F3F6F7;
+}
+table.type09 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<!--<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include> -->
+<div class = "container">
+<jsp:include page="/WEB-INF/lhcViews/lhcHeader.jsp"></jsp:include>
+</div>
 <body>
+<div class="container">
 	<br />
-	<h1 align="center" style="color: skyblue;">관리자</h1>	
+	<h1 align="center" style="font-size: x-large; color: white;">전체 매출 내역</h1>	
 	<%--예약 정보글 없을때 --%>
 	<c:if test="${count == 0}">
 	<table>
@@ -22,24 +70,24 @@
 	
 	<%--예약 정보 있을때 --%>
 	<c:if test="${count > 0}">
-	<table>
-		<tr>
-			<td>No.</td>
-			<td>예약번호</td>
-			<td>피시방이름</td>
-			<td>예약 회원</td>
-			<td>가격</td>
-			<td align="center">예약시간</td>
-			<td align="center">종료시간</td>
+	<table class="type09">
+		<tr scope="cols">
+			<th style="color: black;">No.</th>
+			<th style="color: black;">예약번호</th>
+			<th style="color: black;">피시방이름</th>
+			<th style="color: black;">예약 회원</th>
+			<th style="color: black;">가격</th>
+			<th align="center" style="color: black;">예약시간</th>
+			<th align="center" style="color: black;">종료시간</th>
 		</tr>
 		<!-- for문 반복문 돌아가기  -->
 	<c:forEach var="charList" items="${charList}">
 		<tr style="color: white;">
-			<td>${number}
+			<th scope="row" style="color: black; background-color: gray;">${number}
 				<c:set var="number" value="${number-1}" />
-			</td>
+			</th>
 			<td>${charList.lhc_count}</td>
-			<td><a style="color: skyblue;" href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${charList.lhc_num}&pageNum=${currentPage}">${charList.lhc_name}</a></td>
+			<td><a href="/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${charList.lhc_num}&pageNum=${currentPage}">${charList.lhc_name}</a></td>
 			<td>${charList.lhc_id}</td>
 			<td>${charList.lhc_price}원</td>
 			<td>${charList.lhc_reg}</td>
@@ -76,5 +124,6 @@
 		</c:if>
 	</c:if>
 	</div>
+</div>
 </body>
 </html>

@@ -147,14 +147,14 @@ table.type09 td {
 <body style="background-color: aliceblue">
 <div class="container">
 	<br/>
-	<h1 align="center" style="font-size: x-large;">PC방 등록</h1>
+	<h1 align="center" style="font-size: x-large; color:white;">PC방 등록</h1>
 	<form action="/lhc/lhcPc/lhcPcRegisterPro.lhc" method="post" name="RegisterForm" id="RegisterForm1" onsubmit="return PCcheck()" enctype="multipart/form-data">
 		<%--숨겨서 글 속성에 관련된 데이터 pro에 전송 --%>
 		<input type="hidden" name="lhc_num" value="${lhc_num}"/>
 		<input type="hidden" name="lhc_state" value="b"/>
 		<input type="hidden" name="lhc_lat" id="lhc_lat" value=""/>
 		<input type="hidden" name="lhc_lng" id="lhc_lng" value=""/> 
-		<table class="type09" align="center">
+		<table class="type09" align="center"  >
 			<tr scope="cols">
 				<th>PC방 명</th>
 				<td align="left"><input type="text" name="lhc_name"/></td>

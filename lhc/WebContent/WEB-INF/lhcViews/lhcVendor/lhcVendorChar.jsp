@@ -54,7 +54,7 @@ table.type09 td {
 </div>
 <body style="background-color: aliceblue">
 <div class = "container">
-	<h1 align="center">예약 내역</h1>
+	<h1 align="center" style="color:white;">예약 내역</h1>
 	<br />
 	<%--예약 정보글 없을때 --%>
 	<c:if test="${count == 0}">

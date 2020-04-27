@@ -39,27 +39,35 @@ ul{
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMyChar/lhcVendorChar.lhc'"  class="btn btn-default">예약 내역</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMember/lhcCustomerFavList.lhc'" class="btn btn-default">찜 회원 리스트</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcPcMenu/lhcPcMenuRegister.lhc'"  class="btn btn-default">메뉴 등록</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcPcSpec/lhcPcSpecRegister.lhc'"  class="btn btn-default">pc사양 등록</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcPc/lhcPcRegisterForm.lhc'"  class="btn btn-default">신규 pc 등록 요청</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcPc/lhcPcContent.lhc?lhc_num=${pc.lhc_num}&pageNum=${pageNum}&state=${state}'"  class="btn btn-default">PC 정보</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMember/lhcModifyForm.lhc'"  class="btn btn-default">회원정보수정</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMember/lhcDeleteForm.lhc?sep=${sep}'"  class="btn btn-default">회원정보삭제</button>
 					</li>
+					<br/>
 					<li>
 						<button onclick="window.location.href='/lhc/lhcMember/lhcMain.lhc'"  class="btn btn-default">메인</button>
 					</li>
